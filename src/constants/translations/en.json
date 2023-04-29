@@ -49,10 +49,10 @@
     }
   },
   "app": {
-    "name": "Soft UI",
-    "fullname": "Soft UI Kit",
-    "native": "React Native",
-    "link": "creative-tim.com"
+    "name": "Cuffee Crawl",
+    "fullname": "Coffee Crawl - Tulsa",
+    "native": "",
+    "link": "magicmirrorcreative.com"
   },
   "darkMode": "Dark Mode",
   "screens": {
@@ -66,7 +66,7 @@
     "extra": "Extra - Automotive"
   },
   "navigation": {
-    "home": "Soft UI",
+    "home": "Coffee Crawl - Tulsa, OK",
     "components": "Components",
     "articles": "Soft UI",
     "rentals": "Soft UI",
