@@ -112,11 +112,11 @@ const DrawerContent = (
             marginRight={sizes.sm}
           />
           <Block>
-            <Text size={12} semibold>
-              {t('app.name')}
+            <Text size={18} semibold>
+              Coffee Crawl
             </Text>
             <Text size={12} semibold>
-              {t('app.native')}
+              Tulsa
             </Text>
           </Block>
         </Block>
@@ -192,7 +192,7 @@ const DrawerContent = (
             />
           </Block>
           <Text p color={labelColor}>
-            {t('menu.started')}
+            Learn More
           </Text>
         </Button>
 
