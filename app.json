@@ -1,15 +1,19 @@
 {
   "expo": {
-    "name": "coffee-crawl",
-    "slug": "coffee-crawl",
+    "name": "rn-soft-ui-kit-free",
+    "slug": "rn-soft-ui-kit-free",
+    "description": "React Native - Soft UI Kit - Free",
+    "primaryColor": "#CB0C9F",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#CB0C9F"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,11 +24,14 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#CB0C9F"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }
