@@ -89,7 +89,7 @@ export const FOLLOWING: IProduct[] = [
     title: 'Chimera',
     location: 'Tulsa',
     image:
-      'https://images.unsplash.com/photo-1516007112993-555f24caca6d?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1516007112993-555f24caca6d?fit=crop&w=900&q=100',
   },
   {
     id: 2,

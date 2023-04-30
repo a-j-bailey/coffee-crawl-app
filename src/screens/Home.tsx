@@ -103,7 +103,7 @@ const Home = () => {
             />
             <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
               {cafes?.map((cafe) => (
-                <Cafe {...cafe} key={`card-${cafe?.id}`} />
+                <Cafe cafe={cafe} key={`card-${cafe?.id}`} />
               ))}
             </Block>
             <Block

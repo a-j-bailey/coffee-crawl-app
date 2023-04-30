@@ -8,7 +8,9 @@ import Text from './Text';
 import {IProduct} from '../constants/types';
 import {useTheme, useTranslation} from '../hooks/';
 
-const Cafe = ({id, image, title, type, linkLabel, location}: IProduct) => {
+const Cafe = ({cafe}) => {
+    const {id, image, title, type, linkLabel, location} = cafe;
+
     const {t} = useTranslation();
     const {assets, colors, sizes} = useTheme();
 
@@ -20,14 +22,14 @@ const Cafe = ({id, image, title, type, linkLabel, location}: IProduct) => {
     const handleNavigation = useCallback(
         (id) => {
             console.log(id)
-            navigation.navigate('Profile', {id: id});
+            navigation.navigate('Profile', {cafe: cafe});
         },
         [navigation],
     );
 
 
   return (
-      <TouchableOpacity onPress={() => handleNavigation({id})}>
+      <TouchableOpacity onPress={() => handleNavigation(id)}>
         <Block
             card
             flex={0}

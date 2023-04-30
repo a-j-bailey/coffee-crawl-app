@@ -8,10 +8,13 @@ import {useData, useTheme, useTranslation} from '../hooks/';
 
 const isAndroid = Platform.OS === 'android';
 
-const Profile = () => {
+const Profile = ({navigation, route}) => {
+    const {id, image, title, type, linkLabel, location} = route.params.cafe;
+    
+    console.log('profile: '+title);
   const {user} = useData();
   const {t} = useTranslation();
-  const navigation = useNavigation();
+//  const navigation = useNavigation();
   const {assets, colors, sizes} = useTheme();
 
   const IMAGE_SIZE = (sizes.width - (sizes.padding + sizes.sm) * 2) / 3;
@@ -31,7 +34,7 @@ const Profile = () => {
       try {
         Linking.openURL(url);
       } catch (error) {
-        alert(`Cannot open URL: ${url}`);
+//        alert(`Cannot open URL: ${url}`);
       }
     },
     [user],
@@ -51,7 +54,7 @@ const Profile = () => {
             padding={sizes.sm}
             paddingBottom={sizes.l}
             radius={sizes.cardRadius}
-            source={assets.background}>
+            source={{uri: image}}>
             <Button
               row
               flex={0}
@@ -65,9 +68,7 @@ const Profile = () => {
                 source={assets.arrow}
                 transform={[{rotate: '180deg'}]}
               />
-              <Text p white marginLeft={sizes.s}>
-                {t('profile.title')}
-              </Text>
+              <Text p white marginLeft={sizes.s}>{/*back nav text*/}</Text>
             </Button>
             <Block flex={0} align="center">
               <Image
@@ -77,10 +78,10 @@ const Profile = () => {
                 source={{uri: user?.avatar}}
               />
               <Text h5 center white>
-                {user?.name}
+                {title}
               </Text>
               <Text p center white>
-                {user?.department}
+                {location}
               </Text>
               <Block row marginVertical={sizes.m}>
                 <Button
@@ -88,9 +89,7 @@ const Profile = () => {
                   outlined
                   shadow={false}
                   radius={sizes.m}
-                  onPress={() => {
-                    alert(`Follow ${user?.name}`);
-                  }}>
+                  onPress={() => {alert(`Follow`);}}>
                   <Block
                     justify="center"
                     radius={sizes.m}
