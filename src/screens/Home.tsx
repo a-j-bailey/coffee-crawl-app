@@ -10,13 +10,13 @@ const Home = () => {
   const [cafes, setCafes] = useState(following);
   const {assets, colors, fonts, gradients, sizes} = useTheme();
 
-  const handleProducts = useCallback(
-    (tab: number) => {
-      setTab(tab);
-      setCafes(tab === 0 ? following : trending);
-    },
-    [following, trending, setTab, setCafes],
-  );
+//  const handleProducts = useCallback(
+//    (tab: number) => {
+//      setTab(tab);
+//      setCafes(tab === 0 ? following : trending);
+//    },
+//    [following, trending, setTab, setCafes],
+//  );
 
   return (
     <Block>
@@ -84,15 +84,15 @@ const Home = () => {
 
       {/* cafe list */}
       <Block
-        scroll
-        paddingHorizontal={sizes.padding}
+          scroll
+          paddingHorizontal={sizes.padding}
           marginVertical={sizes.sm}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: sizes.l}}>
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: sizes.l}}>
             <Text h5 center>Welcome to the</Text>
             <Text h4 center>2024 Tulsa Coffee Crawl</Text>
             <Text center>
-                This is your ticket to a whole month of <Text bold>FREE</Text> coffee from some of the greatest coffee shops in the Tulsa area.
+                Your ticket to a whole month of coffee from the greatest coffee shops in Tulsa.
             </Text>
             <Block
                 flex={0}
@@ -101,11 +101,21 @@ const Home = () => {
                 marginVertical={sizes.sm}
                 gradient={gradients.menu}
             />
-        <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
-          {cafes?.map((cafe) => (
-            <Cafe {...cafe} key={`card-${cafe?.id}`} />
-          ))}
-        </Block>
+            <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
+              {cafes?.map((cafe) => (
+                <Cafe {...cafe} key={`card-${cafe?.id}`} />
+              ))}
+            </Block>
+            <Block
+                flex={0}
+                height={1}
+                marginRight={sizes.md}
+                marginVertical={sizes.sm}
+                gradient={gradients.menu}
+            />
+            <Text center>
+                ☕
+            </Text>
       </Block>
     </Block>
   );

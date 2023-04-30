@@ -86,44 +86,50 @@ export const FOLLOWING: IProduct[] = [
   {
     id: 1,
     type: 'vertical',
-    title: 'Unique activities with local experts.',
+    title: 'Chimera',
+    location: 'Tulsa',
     image:
-      'https://images.unsplash.com/photo-1604998103924-89e012e5265a?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1516007112993-555f24caca6d?fit=crop&w=450&q=80',
   },
   {
     id: 2,
     type: 'vertical',
-    title: 'The highest status people.',
+    title: 'Cirque Coffee',
+    location: 'Tulsa',
     image:
-      'https://images.unsplash.com/photo-1563492065599-3520f775eeed?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?fit=crop&w=450&q=80',
   },
   {
     id: 3,
     type: 'horizontal',
-    title: 'Experiences and things to do wherever you are.',
+    title: 'Notion',
+    location: 'Tulsa',
     image:
-      'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1493857671505-72967e2e2760?fit=crop&w=450&q=80',
   },
   {
     id: 4,
     type: 'vertical',
-    title: 'Get more followers and grow.',
+    title: 'Rattlesnake Cafe',
+    location: 'Broken Arrow',
     image:
-      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1453614512568-c4024d13c247?fit=crop&w=450&q=80',
   },
   {
     id: 5,
     type: 'vertical',
-    title: 'New ways to meet your business goals.',
+    title: 'Doubleshot Coffee',
+    location: 'Tulsa',
     image:
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?fit=crop&w=450&q=80',
   },
   {
     id: 6,
     type: 'horizontal',
-    title: 'Adventures - Multi day trips with meals and stays.',
+    title: 'Hodges Bend',
+    location: 'Tulsa',
     image:
-      'https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?fit=crop&w=450&q=80',
+      'https://images.unsplash.com/photo-1512192397443-4fd4ed400de3?fit=crop&w=450&q=80',
   },
 ];
 
@@ -132,7 +138,7 @@ export const TRENDING: IProduct[] = [
   {
     id: 1,
     type: 'horizontal',
-    title: 'Experiences and things to do wherever you are.',
+    title: 'Hodges Bend',
     image:
       'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?fit=crop&w=450&q=80',
   },
