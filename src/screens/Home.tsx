@@ -1,21 +1,21 @@
 import React, {useCallback, useState} from 'react';
 
 import {useData, useTheme, useTranslation} from '../hooks/';
-import {Block, Button, Image, Input, Product, Text} from '../components/';
+import {Block, Button, Image, Input, Cafe, Text} from '../components/';
 
 const Home = () => {
   const {t} = useTranslation();
   const [tab, setTab] = useState<number>(0);
   const {following, trending} = useData();
-  const [products, setProducts] = useState(following);
+  const [cafes, setCafes] = useState(following);
   const {assets, colors, fonts, gradients, sizes} = useTheme();
 
   const handleProducts = useCallback(
     (tab: number) => {
       setTab(tab);
-      setProducts(tab === 0 ? following : trending);
+      setCafes(tab === 0 ? following : trending);
     },
-    [following, trending, setTab, setProducts],
+    [following, trending, setTab, setCafes],
   );
 
   return (
@@ -82,15 +82,28 @@ const Home = () => {
         </Button>
       </Block> */}
 
-      {/* products list */}
+      {/* cafe list */}
       <Block
         scroll
         paddingHorizontal={sizes.padding}
+          marginVertical={sizes.sm}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: sizes.l}}>
+            <Text h5 center>Welcome to the</Text>
+            <Text h4 center>2024 Tulsa Coffee Crawl</Text>
+            <Text center>
+                This is your ticket to a whole month of <Text bold>FREE</Text> coffee from some of the greatest coffee shops in the Tulsa area.
+            </Text>
+            <Block
+                flex={0}
+                height={1}
+                marginRight={sizes.md}
+                marginVertical={sizes.sm}
+                gradient={gradients.menu}
+            />
         <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
-          {products?.map((product) => (
-            <Product {...product} key={`card-${product?.id}`} />
+          {cafes?.map((cafe) => (
+            <Cafe {...cafe} key={`card-${cafe?.id}`} />
           ))}
         </Block>
       </Block>

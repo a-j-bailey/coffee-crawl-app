@@ -74,6 +74,11 @@ export const COLORS: ThemeColors = {
 
   /** product link color */
   link: '#CB0C9F',
+    
+    /* CUSTOM */
+    coffee: '',
+    
+    transparent: '#FFFFFFFF',
 };
 
 export const GRADIENTS: ThemeGradients = {

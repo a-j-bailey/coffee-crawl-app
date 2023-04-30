@@ -7,7 +7,7 @@ import Switch from './Switch';
 import Checkbox from './Checkbox';
 import Image from './Image';
 import Article from './Article';
-import Product from './Product';
+import Cafe from './Cafe';
 
 export {
   Block,
@@ -18,6 +18,6 @@ export {
   Checkbox,
   Image,
   Article,
-  Product,
+  Cafe,
   Modal,
 };

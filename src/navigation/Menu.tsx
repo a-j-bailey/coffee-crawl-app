@@ -87,11 +87,8 @@ const DrawerContent = (
     {name: t('screens.home'), to: 'Home', icon: assets.home},
     {name: t('screens.components'), to: 'Components', icon: assets.components},
     {name: t('screens.articles'), to: 'Articles', icon: assets.document},
-    {name: t('screens.rental'), to: 'Pro', icon: assets.rental},
     {name: t('screens.profile'), to: 'Profile', icon: assets.profile},
-    {name: t('screens.settings'), to: 'Pro', icon: assets.settings},
     {name: t('screens.register'), to: 'Register', icon: assets.register},
-    {name: t('screens.extra'), to: 'Pro', icon: assets.extras},
   ];
 
   return (
@@ -111,14 +108,6 @@ const DrawerContent = (
             source={assets.logo}
             marginRight={sizes.sm}
           />
-          <Block>
-            <Text size={18} semibold>
-              Coffee Crawl
-            </Text>
-            <Text size={12} semibold>
-              Tulsa
-            </Text>
-          </Block>
         </Block>
 
         {screens?.map((screen, index) => {
@@ -195,17 +184,6 @@ const DrawerContent = (
             Learn More
           </Text>
         </Button>
-
-        <Block row justify="space-between" marginTop={sizes.sm}>
-          <Text color={labelColor}>{t('darkMode')}</Text>
-          <Switch
-            checked={isDark}
-            onPress={(checked) => {
-              handleIsDark(checked);
-              Alert.alert(t('pro.title'), t('pro.alert'));
-            }}
-          />
-        </Block>
       </Block>
     </DrawerContentScrollView>
   );

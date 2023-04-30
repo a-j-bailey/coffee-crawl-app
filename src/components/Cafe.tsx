@@ -7,7 +7,7 @@ import Text from './Text';
 import {IProduct} from '../constants/types';
 import {useTheme, useTranslation} from '../hooks/';
 
-const Product = ({image, title, type, linkLabel}: IProduct) => {
+const Cafe = ({image, title, type, linkLabel}: IProduct) => {
   const {t} = useTranslation();
   const {assets, colors, sizes} = useTheme();
 
@@ -55,4 +55,4 @@ const Product = ({image, title, type, linkLabel}: IProduct) => {
   );
 };
 
-export default Product;
+export default Cafe;
