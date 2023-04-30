@@ -1,5 +1,5 @@
-import React, {useCallback} from 'react';
-import {Platform, Linking} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Platform, Linking, Alert} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
 
@@ -8,10 +8,113 @@ import {useData, useTheme, useTranslation} from '../hooks/';
 
 const isAndroid = Platform.OS === 'android';
 
-const Profile = ({navigation, route}) => {
-    const {id, image, title, type, linkLabel, location} = route.params.cafe;
+/* drawer menu screens navigation */
+
+const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) => {
+    const {assets, colors, gradients, sizes} = useTheme();
+
+    const [status, setStatus] = useState('Available');
     
-    console.log('profile: '+title);
+    function activateCoupon() {
+        setStatus('Active');
+    };
+    
+    const confirmActivate = useCallback(
+        () => {
+            Alert.alert(
+                'Activate Coupon?',
+                'Coupons expire after 15 minutes and cannot be reused.',
+                [
+                    {
+                        text: 'Cancel',
+                        onPress: () => {},
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Activate',
+                        onPress: () => activateCoupon(),
+                        style: 'default',
+                    },
+                ],
+                {
+                    cancelable: true,
+                    onDismiss: () => {},
+                },
+            );
+        },
+        [],
+    );
+    
+    if (status == 'Available') {
+        return (
+            <Block padding={sizes.padding}>
+                <Button
+                    flex={1}
+                    gradient={gradients.primary}
+                    marginBottom={sizes.base}
+                    shadow
+                    onPress={() => confirmActivate()}>
+                  <Text white bold transform="uppercase">
+                    Activate Coupon
+                  </Text>
+                </Button>
+                <Text center size={10} lineHeight={12}>
+                    Don't activate the coupon until you're ready to use.
+                    Coupons are only redeemable for 15 minutes once activated.
+                </Text>
+            </Block>
+        );
+    } else if (status == 'Active') {
+        return (
+            <Block padding={sizes.l}>
+                <Block
+                    card
+                    padding={0}
+                    marginTop={sizes.sm}>
+                    <Image
+                      background
+                      resizeMode="cover"
+                      source={assets.background}
+                      radius={sizes.cardRadius}>
+                        <Block color="rgba(0,0,0,0.1)" padding={sizes.xl} align="center">
+                            <Image source={{uri: logo}} width={80} height={80} center/>
+                            <Text white h4 margin={sizes.m}>15:00</Text>
+                            <Text white h6>Tulsa Coffee Crawl</Text>
+                            <Text white p center size={sizes.s}>1 Free Small Iced or Hot Coffee</Text>
+                        </Block>
+                    </Image>
+                </Block>
+            </Block>
+        );
+    } else if (status == 'Expired') {
+        return (
+            <Block padding={sizes.padding}>
+                <Text gradient={gradients.success} bold transform="uppercase" center>
+                    <Ionicons size={16} name="checkmark-circle-outline"/> Coupon Used
+                </Text>
+                <Block marginTop={sizes.s}>
+                    <Text dark bold center>
+                        I hope you enjoyed your coffee!
+                    </Text>
+                    <Text dark center>
+                        Don't forget to leave a review!
+                    </Text>
+                    <Button flex={1} gradient={gradients.dark} margin={sizes.s}>
+                        <Text white bold marginHorizontal={sizes.s}>
+                            Review on RSTRS App
+                        </Text>
+                    </Button>
+                </Block>
+            </Block>
+        );
+    }
+
+    
+};
+
+const Profile = ({navigation, route}) => {
+    const {id, image, title, type, linkLabel, location, logo} = route.params.cafe;
+
   const {user} = useData();
   const {t} = useTranslation();
 //  const navigation = useNavigation();
@@ -76,6 +179,11 @@ const Profile = ({navigation, route}) => {
                     marginBottom={sizes.sm}
                     source={{uri: user?.avatar}}
                   />*/}
+                    <Image
+                        source={{uri: logo}}
+                        width={80}
+                        height={80}
+                        />
                   <Text h4 center white>
                     {title}
                   </Text>
@@ -132,7 +240,7 @@ const Profile = ({navigation, route}) => {
             radius={sizes.sm}
             shadow={!isAndroid} // disabled shadow on Android due to blur overlay + elevation issue
             marginTop={-sizes.m}
-            marginHorizontal="8%"
+            marginHorizontal={sizes.padding}
             color="rgba(255,255,255,0.2)">
             <Block
               row
@@ -151,40 +259,22 @@ const Profile = ({navigation, route}) => {
             </Block>
           </Block>
 
-          {/* profile: about me */}
-          <Block paddingHorizontal={sizes.sm}>
-            <Text h5 semibold marginBottom={sizes.s} marginTop={sizes.sm}>
-              {t('profile.aboutMe')}
-            </Text>
-            <Text p lineHeight={26}>
-              {user?.about}
-            </Text>
-          </Block>
-            {/*Activate Button*/}
+          {/*Activate Button*/}
+            <CouponContainer {...route.params.cafe}/>
             <Block padding={sizes.padding}>
-                <Button flex={1} gradient={gradients.primary} marginBottom={sizes.base} shadow>
-                  <Text white bold transform="uppercase">
-                    Activate Coupon
-                  </Text>
-                </Button>
-                <Text center size={10}>
-                    Don't activate the coupon until you're ready to use.
-                    Couponse are only redeemable for 15 minutes once activated.
-                </Text>
+                <Text bold transform="uppercase" marginTop={sizes.s}>Address</Text>
+                <Text>2809 E 101st St, Tulsa, OK 74137</Text>
+                <Text bold transform="uppercase" marginTop={sizes.s}>Hours</Text>
+                <Text>Mon: 10am - 6pm</Text>
+                <Text>Tue: 10am - 6pm</Text>
+                <Text>Wed: 10am - 6pm</Text>
+                <Text>Thu: 10am - 6pm</Text>
+                <Text>Fri: 10am - 6pm</Text>
+                <Text>Sat: 10am - 6pm</Text>
+                <Text>Sun: Closed</Text>
             </Block>
             {/*Mock Coupon*/}
-            <Block padding={sizes.l}>
-                <Block card padding={0} marginTop={sizes.sm}>
-                    <Image
-                      background
-                      resizeMode="cover"
-                      source={assets.background}
-                      radius={sizes.cardRadius}>
-                        <Block color="rgba(0,0,0,0.1)" padding={sizes.l} height={400}>
-                        </Block>
-                    </Image>
-                </Block>
-            </Block>
+            
         </Block>
       </Block>
     </Block>

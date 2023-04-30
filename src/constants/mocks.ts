@@ -88,48 +88,48 @@ export const FOLLOWING: IProduct[] = [
     type: 'vertical',
     title: 'Chimera',
     location: 'Tulsa',
-    image:
-      'https://images.unsplash.com/photo-1516007112993-555f24caca6d?fit=crop&w=900&q=100',
+    image: 'https://images.unsplash.com/photo-1516007112993-555f24caca6d?fit=crop&w=900&q=100',
+    logo: 'https://d1835ylud4heuo.cloudfront.net/assets/merchants/logo/43153C15-D008-4A56-1587746100686-logo.jpg',
   },
   {
     id: 2,
     type: 'vertical',
     title: 'Cirque Coffee',
     location: 'Tulsa',
-    image:
-      'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?fit=crop&w=450&q=80',
+    image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?fit=crop&w=450&q=80',
+    logo: 'https://play-lh.googleusercontent.com/zCy3ngnrV7IUfHJ_LsJLzpZh4hx-dVIDzIU_0wiDQifZ39zr5vJYGEmdxpN5_EabNQ=w480-h960',
   },
   {
     id: 3,
     type: 'horizontal',
     title: 'Notion',
     location: 'Tulsa',
-    image:
-      'https://images.unsplash.com/photo-1493857671505-72967e2e2760?fit=crop&w=450&q=80',
+    image: 'https://images.unsplash.com/photo-1493857671505-72967e2e2760?fit=crop&w=450&q=80',
+    logo: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAb1BMVEUAAAD6+vr////Nzc3k5OT5+fm0tLQsLCyurq7o6Oj29vYoKCjR0dEZGRnd3d3V1dWNjY3Dw8OhoaGBgYFERESVlZVbW1unp6e8vLwvLy9paWlRUVEkJCQTExNiYmLs7Ox4eHgWFhY9PT2YmJhKSkrRFSV3AAADQUlEQVR4nO2d604qMRhF2wojF0VUUMELyPH9n/FEDh5m+rUFnQRksddP2IldqaF0txmcE0IIIYQQQgghhBBCCCGEEEIIIYQQQghxzjz1OzX641J2uOhELA41zBZcBV8j9EvZy0Z2nT/UMFtw0Rx1WBayDMObQhZh6MNzPgsxvM1nGYY+XGezFMNeNgsx9IPXXJZiGLKrPsawk8tSDH2YZ7Icw6tMFmPow0c6CzJ8Smc5hj68J7Mkw7tkFmToB8ksyTDcp7IkQz9KZVGGyVWfZXiRyKIMvZ/YLMswtU1kGfqu3evDDMPUZGGGiVWfZmjLYZyhWfVphj48RFmeYVwO4wx9d9XM8gzDYzPLM/SD5qoPNIzKYaChbx4JEw3DWz2LNGwcCRMNm+Uw07BeDiMN/WC2zTIN6+Uw09AvtkfCUMNaOUw13G4ToYa1bSLW8H85TDHsmhs2w02WYthfxBrVJksxHN3FL31tEymGnUvjsSmHMYb2tc02kWM4N581y3WWY+j6sci/bSLIcBq6kcn65jDI0Jl/0/U2kWRYGcUXxzKcGMPPcphk6G7Mqu9ghksziWOYoVkwPl9mGf4xkziHGc4GscyFG6IM3ZOZxMkLy/DBGFavLEM3Mu+sYIb3dhJhhi5+I8GJGz7urOFO3dAufzRDd7u7Sz3iyPelZPiGN0wsGDTDMd7wNf5yijN0vV0nxEcb9/6UDe33NJph9NgMoqGpv3GGLj5q4xlOy7fCjjTq77DLcFhcMAiGts3AGT7HpzQ4Q1t/4wxNm4EzdIXPGoihuZuBM7Q1Kc2w0GZQDJ/xhvk2A2OYXTAwhte5HQbGMFt/cwwn+DnMPlzi0MP9AXsaztM7DJChvZuBM0zX3yRDc5mPZ2iPuGmG5jIfzjBZf7MMzWU+nGFqwYAZmst8OMMhfg4T9TfN8ANvaNsMnKG9/X24gf6Ybxma81KeYdxm8AxX+DmM62+g4dvpGV6FmOJPzbhOM3ygUbZh3ItJPwf6i3lVz1bFrBBCCCGEEOJ8mFZtyPyo0K/C7g+/xbGHvwe7n9dWQoa/gTMw9N0WnILhy+yyBbPdf0AIIYQQQgghhBBCCCGEEEIIIYQQQgghBJi/PFIs5H+gFRAAAAAASUVORK5CYII=',
   },
   {
     id: 4,
     type: 'vertical',
     title: 'Rattlesnake Cafe',
     location: 'Broken Arrow',
-    image:
-      'https://images.unsplash.com/photo-1453614512568-c4024d13c247?fit=crop&w=450&q=80',
+    image: 'https://images.unsplash.com/photo-1453614512568-c4024d13c247?fit=crop&w=450&q=80',
+    logo: 'https://d1835ylud4heuo.cloudfront.net/assets/merchants/logo/4F6809E0-5476-44D9-1607038896281-logo.png',
   },
   {
     id: 5,
     type: 'vertical',
     title: 'Doubleshot Coffee',
     location: 'Tulsa',
-    image:
-      'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?fit=crop&w=450&q=80',
+    image: 'https://images.unsplash.com/photo-1567880905822-56f8e06fe630?fit=crop&w=450&q=80',
+    logo: 'https://doubleshot-coffee-company.square.site/uploads/b/ae28a430-c9ca-11ea-a859-173bdcd69377/577afb8fd0b513e542efe3e1220bdb7a.jpeg',
   },
   {
     id: 6,
     type: 'horizontal',
     title: 'Hodges Bend',
     location: 'Tulsa',
-    image:
-      'https://images.unsplash.com/photo-1512192397443-4fd4ed400de3?fit=crop&w=450&q=80',
+    image: 'https://images.unsplash.com/photo-1512192397443-4fd4ed400de3?fit=crop&w=450&q=80',
+    logo: 'https://lh3.googleusercontent.com/vC0vnRJdlIKyZOyra7hk4-YguA9Nc3xVniWPHZp96zfgyKRALY1g0KEcICIiCJiilgFnCE-zOKJcyVHjuTIUTH9TduXK',
   },
 ];
 
