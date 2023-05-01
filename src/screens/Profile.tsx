@@ -162,13 +162,10 @@ const Profile = ({navigation, route}) => {
                   flex={0}
                   justify="flex-start"
                   onPress={() => navigation.goBack()}>
-                  <Image
-                    radius={0}
-                    width={10}
-                    height={18}
+                  <Ionicons
+                    size={30}
+                    name="chevron-back-outline"
                     color={colors.white}
-                    source={assets.arrow}
-                    transform={[{rotate: '180deg'}]}
                   />
                   <Text p white marginLeft={sizes.s}>{/*back nav text*/}</Text>
                 </Button>
