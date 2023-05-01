@@ -3,13 +3,30 @@ import React, {useCallback, useState} from 'react';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Input, Cafe, Text} from '../components/';
 
-const Home = () => {
-  const {t} = useTranslation();
-  const [tab, setTab] = useState<number>(0);
-  const {following, trending} = useData();
-  const [cafes, setCafes] = useState(following);
-  const {assets, colors, fonts, gradients, sizes} = useTheme();
+import { supabase } from '../services/supabaseClient';
 
+const Home = () => {
+    const {t} = useTranslation();
+    const [tab, setTab] = useState<number>(0);
+    const {following, trending} = useData();
+    const [cafes, setCafes] = useState(following);
+    const {assets, colors, fonts, gradients, sizes} = useTheme();
+
+    const [cafes2, setCafes2] = useState([]);
+
+    useEffect(() => {
+        getCountries();
+    }, []);
+
+    async function getCountries() {        
+        let { data: cafes2, error } = await supabase.from('cafes').select('*')
+
+        setCountries(cafes2);
+        console.log('cafes: '+cafes2);
+        console.log('error: '+error);
+    };
+
+    
 //  const handleProducts = useCallback(
 //    (tab: number) => {
 //      setTab(tab);

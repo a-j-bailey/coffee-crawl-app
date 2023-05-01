@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
-import {Platform, StatusBar} from 'react-native';
+import 'react-native-url-polyfill/auto'
+import React, {useEffect, useState} from 'react';
+import {Platform, StatusBar, View, Text} from 'react-native';
 import {useFonts} from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
