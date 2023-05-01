@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Alert, Animated, Linking, StyleSheet} from 'react-native';
 
 import {
-  useIsDrawerOpen,
+  useDrawerStatus,
   createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentOptions,
@@ -16,50 +16,49 @@ import {useData, useTheme, useTranslation} from '../hooks';
 const Drawer = createDrawerNavigator();
 
 /* drawer menu screens navigation */
-const ScreensStack = () => {
-  const {colors} = useTheme();
-  const isDrawerOpen = useIsDrawerOpen();
-  const animation = useRef(new Animated.Value(0)).current;
-
-  const scale = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0.88],
-  });
-
-  const borderRadius = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 16],
-  });
-
-  const animatedStyle = {
-    borderRadius: borderRadius,
-    transform: [{scale: scale}],
-  };
-
-  useEffect(() => {
-    Animated.timing(animation, {
-      duration: 200,
-      useNativeDriver: true,
-      toValue: isDrawerOpen ? 1 : 0,
-    }).start();
-  }, [isDrawerOpen, animation]);
-
-  return (
-    <Animated.View
-      style={StyleSheet.flatten([
-        animatedStyle,
-        {
-          flex: 1,
-          overflow: 'hidden',
-          borderColor: colors.card,
-          borderWidth: isDrawerOpen ? 1 : 0,
-        },
-      ])}>
-      {/*  */}
-      <Screens />
-    </Animated.View>
-  );
-};
+//const ScreensStack = () => {
+//  const {colors} = useTheme();
+//  const isDrawerOpen = useDrawerStatus() === 'open';
+//  const animation = useRef(new Animated.Value(0)).current;
+//
+//  const scale = animation.interpolate({
+//    inputRange: [0, 1],
+//    outputRange: [1, 0.88],
+//  });
+//
+//  const borderRadius = animation.interpolate({
+//    inputRange: [0, 1],
+//    outputRange: [0, 16],
+//  });
+//
+//  const animatedStyle = {
+//    borderRadius: borderRadius,
+//    transform: [{scale: scale}],
+//  };
+//
+//  useEffect(() => {
+//    Animated.timing(animation, {
+//      duration: 200,
+//      useNativeDriver: true,
+//      toValue: isDrawerOpen ? 1 : 0,
+//    }).start();
+//  }, [isDrawerOpen, animation]);
+//
+//  return (
+//    <Animated.View
+//      style={StyleSheet.flatten([
+//        animatedStyle,
+//        {
+//          flex: 1,
+//          overflow: 'hidden',
+//          borderColor: colors.card,
+//          borderWidth: isDrawerOpen ? 1 : 0,
+//        },
+//      ])}>
+//      {/*  */}
+//    </Animated.View>
+//  );
+//};
 
 /* custom drawer menu */
 const DrawerContent = (
@@ -194,17 +193,26 @@ export default () => {
   return (
     <Block gradient={gradients.light}>
       <Drawer.Navigator
-        drawerType="slide"
-        overlayColor="transparent"
-        sceneContainerStyle={{backgroundColor: 'transparent'}}
-        drawerContent={(props) => <DrawerContent {...props} />}
-        drawerStyle={{
-          flex: 1,
-          width: '60%',
-          borderRightWidth: 0,
-          backgroundColor: 'transparent',
-        }}>
-        <Drawer.Screen name="Screens" component={ScreensStack} />
+            drawerType="slide"
+            overlayColor="transparent"
+            sceneContainerStyle={{backgroundColor: 'transparent'}}
+            drawerContent={(props) => <DrawerContent {...props} />}
+            drawerStyle={{
+              flex: 1,
+              width: '60%',
+              borderRightWidth: 0,
+              backgroundColor: 'light',
+            }}
+          screenOptions={{
+              headerShown: false,
+              drawerStyle: {
+                  backgroundColor: 'light',
+              },
+          }}>
+        <Drawer.Screen
+            name="Screens"
+            component={Screens}
+        />
       </Drawer.Navigator>
     </Block>
   );
