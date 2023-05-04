@@ -9,7 +9,9 @@ import {IProduct} from '../constants/types';
 import {useTheme, useTranslation} from '../hooks/';
 
 const Cafe = ({cafe}) => {
-    const {id, image, title, type, linkLabel, location} = cafe;
+    const {id, image, name, linkLabel, location_short} = cafe;
+    
+    let type = 'vertical';
 
     const {t} = useTranslation();
     const {assets, colors, sizes} = useTheme();
@@ -50,12 +52,11 @@ const Cafe = ({cafe}) => {
         paddingLeft={isHorizontal ? sizes.sm : 0}
         paddingBottom={isHorizontal ? sizes.s : 0}>
           <Block>
-                <Text p marginBottom={sizes.xxs}>
-                    {title}
-                </Text>
-                <Text h6 marginBottom={sizes.xs} size={12}>{location}</Text>
+            <Text p marginBottom={sizes.xxs}>
+                {name}
+            </Text>
+            <Text h6 marginBottom={sizes.xs} size={12}>{location_short}</Text>
           </Block>
-        
           <Block row flex={0} align="center">
             <Text
               p

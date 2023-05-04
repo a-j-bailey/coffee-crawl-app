@@ -113,7 +113,17 @@ const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) =
 };
 
 const Profile = ({navigation, route}) => {
-    const {id, image, title, type, linkLabel, location, logo} = route.params.cafe;
+    const {
+        id,
+        image,
+        name,
+        type,
+        linkLabel,
+        location_short,
+        location_address,
+        logo,
+        coupon_value
+    } = route.params.cafe;
 
   const {user} = useData();
   const {t} = useTranslation();
@@ -133,7 +143,6 @@ const Profile = ({navigation, route}) => {
         type === 'twitter'
           ? `https://twitter.com/${user?.social?.twitter}`
           : `https://dribbble.com/${user?.social?.dribbble}`;
-
       try {
         Linking.openURL(url);
       } catch (error) {
@@ -182,10 +191,10 @@ const Profile = ({navigation, route}) => {
                         height={80}
                         />
                   <Text h4 center white>
-                    {title}
+                    {name}
                   </Text>
                   <Text p center white>
-                    {location}
+                    {location_short}
                   </Text>
                   <Block row marginVertical={sizes.m}>
                     <Button
@@ -251,7 +260,7 @@ const Profile = ({navigation, route}) => {
               paddingVertical={sizes.sm}
               renderToHardwareTextureAndroid>
               <Block align="center">
-                <Text>1 Small Iced Coffee.</Text>
+                <Text>{coupon_value}</Text>
               </Block>
             </Block>
           </Block>
@@ -260,7 +269,7 @@ const Profile = ({navigation, route}) => {
             <CouponContainer {...route.params.cafe}/>
             <Block padding={sizes.padding}>
                 <Text bold transform="uppercase" marginTop={sizes.s}>Address</Text>
-                <Text>2809 E 101st St, Tulsa, OK 74137</Text>
+                <Text>{location_address}</Text>
                 <Text bold transform="uppercase" marginTop={sizes.s}>Hours</Text>
                 <Text>Mon: 10am - 6pm</Text>
                 <Text>Tue: 10am - 6pm</Text>
