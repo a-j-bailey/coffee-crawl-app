@@ -5,7 +5,7 @@ import {useFonts} from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 
-import Menu from './Menu';
+import Auth from './Auth';
 import {useData, ThemeProvider, TranslationProvider} from '../hooks';
 
 export default () => {
@@ -51,7 +51,7 @@ export default () => {
     <TranslationProvider>
       <ThemeProvider theme={theme} setTheme={setTheme}>
         <NavigationContainer theme={navigationTheme}>
-          <Menu />
+          <Auth />
         </NavigationContainer>
       </ThemeProvider>
     </TranslationProvider>

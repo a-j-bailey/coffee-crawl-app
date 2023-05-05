@@ -10,26 +10,26 @@ export default () => {
     const {t} = useTranslation();
     const screenOptions = useScreenOptions();
     
-    const authenticated = false;
-    
-    if (!authenticated) {
-        return (
-            <Stack.Navigator
-                screenOptions={screenOptions.stack}
-            >
-                <Stack.Screen
-                    name="Login"
-                    component={Login}
-                    options={{headerShown: false}}
-                />
-                <Stack.Screen
-                    name="Register"
-                    component={Register}
-                    options={{headerShown: false}}
-                />
-            </Stack.Navigator>
-        )
-    }
+//    const authenticated = false;
+//    
+//    if (!authenticated) {
+//        return (
+//            <Stack.Navigator
+//                screenOptions={screenOptions.stack}
+//            >
+//                <Stack.Screen
+//                    name="Login"
+//                    component={Login}
+//                    options={{headerShown: false}}
+//                />
+//                <Stack.Screen
+//                    name="Register"
+//                    component={Register}
+//                    options={{headerShown: false}}
+//                />
+//            </Stack.Navigator>
+//        )
+//    }
     
 
     return (
