@@ -15,51 +15,6 @@ import {useData, useTheme, useTranslation} from '../hooks';
 
 const Drawer = createDrawerNavigator();
 
-/* drawer menu screens navigation */
-//const ScreensStack = () => {
-//  const {colors} = useTheme();
-//  const isDrawerOpen = useDrawerStatus() === 'open';
-//  const animation = useRef(new Animated.Value(0)).current;
-//
-//  const scale = animation.interpolate({
-//    inputRange: [0, 1],
-//    outputRange: [1, 0.88],
-//  });
-//
-//  const borderRadius = animation.interpolate({
-//    inputRange: [0, 1],
-//    outputRange: [0, 16],
-//  });
-//
-//  const animatedStyle = {
-//    borderRadius: borderRadius,
-//    transform: [{scale: scale}],
-//  };
-//
-//  useEffect(() => {
-//    Animated.timing(animation, {
-//      duration: 200,
-//      useNativeDriver: true,
-//      toValue: isDrawerOpen ? 1 : 0,
-//    }).start();
-//  }, [isDrawerOpen, animation]);
-//
-//  return (
-//    <Animated.View
-//      style={StyleSheet.flatten([
-//        animatedStyle,
-//        {
-//          flex: 1,
-//          overflow: 'hidden',
-//          borderColor: colors.card,
-//          borderWidth: isDrawerOpen ? 1 : 0,
-//        },
-//      ])}>
-//      {/*  */}
-//    </Animated.View>
-//  );
-//};
-
 /* custom drawer menu */
 const DrawerContent = (
   props: DrawerContentComponentProps<DrawerContentOptions>,
