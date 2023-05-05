@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Alert, Animated, Linking, StyleSheet} from 'react-native';
-
+import { supabase } from '../services/supabaseClient';
 import {
   useDrawerStatus,
   createDrawerNavigator,
@@ -104,40 +104,9 @@ const DrawerContent = (
           marginVertical={sizes.sm}
           gradient={gradients.menu}
         />
-
-        <Text semibold transform="uppercase" opacity={0.5}>
-          {t('menu.documentation')}
-        </Text>
-
-        <Button
-          row
-          justify="flex-start"
-          marginTop={sizes.sm}
-          marginBottom={sizes.s}
-          onPress={() =>
-            handleWebLink('https://github.com/creativetimofficial')
-          }>
-          <Block
-            flex={0}
-            radius={6}
-            align="center"
-            justify="center"
-            width={sizes.md}
-            height={sizes.md}
-            marginRight={sizes.s}
-            gradient={gradients.white}>
-            <Image
-              radius={0}
-              width={14}
-              height={14}
-              color={colors.black}
-              source={assets.documentation}
-            />
-          </Block>
-          <Text p color={labelColor}>
-            Learn More
-          </Text>
-        </Button>
+          <Button title="Sign Out" onPress={() => supabase.auth.signOut()}>
+            <Text color={colors.danger}>Sign Out</Text>
+          </Button>
       </Block>
     </DrawerContentScrollView>
   );
