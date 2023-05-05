@@ -41,10 +41,12 @@ const Login = () => {
         setLoading(false);
     }
     
+    const imageLink = 'https://images.unsplash.com/photo-1525480122447-64809d765ec4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGNvZmZlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'
+    
     return (
         <Image
             background
-            source={assets.card1}
+            source={{uri: imageLink}}
             paddingHorizontal={sizes.padding}
             style={{flex: 1}}>
             <Block safe>
