@@ -60,7 +60,7 @@ const Home = () => {
                 marginVertical={sizes.sm}
                 gradient={gradients.menu}
             />
-            <Block row wrap="wrap" justify="space-between" marginTop={sizes.sm}>
+            <Block row wrap="wrap" justify="space-between" marginVertical={sizes.sm}>
               {cafes?.map((cafe) => (
                 <Cafe cafe={cafe} key={`card-${cafe?.id}`} />
               ))}
