@@ -93,7 +93,7 @@ const Register = () => {
             </Button>
 
             <Text h4 center white marginBottom={sizes.md}>
-              {t('register.title')}
+              Join the Coffee Crawl
             </Text>
           </Image>
         </Block>

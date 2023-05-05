@@ -66,15 +66,31 @@ const Home = () => {
               ))}
             </Block>
             <Block
+                row
                 flex={0}
-                height={1}
-                marginRight={sizes.md}
-                marginVertical={sizes.sm}
-                gradient={gradients.menu}
-            />
-            <Text center>
-                ☕
-            </Text>
+                align="center"
+                justify="center"
+                marginBottom={sizes.sm}
+                paddingHorizontal={sizes.xxl}>
+                <Block
+                    flex={0}
+                    height={1}
+                    width="50%"
+                    end={[1, 0]}
+                    start={[0, 1]}
+                    gradient={gradients.divider}/>
+                    <Text center marginHorizontal={sizes.s}>
+                        ☕
+                    </Text>
+                <Block
+                    flex={0}
+                    height={1}
+                    width="50%"
+                    end={[0, 1]}
+                    start={[1, 0]}
+                    gradient={gradients.divider}
+                />
+          </Block>
       </Block>
     </Block>
   );

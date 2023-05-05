@@ -25,7 +25,7 @@ const DrawerContent = (
   const [active, setActive] = useState('Home');
   const {assets, colors, gradients, sizes} = useTheme();
   const labelColor = colors.text;
-
+    
   const handleNavigation = useCallback(
     (to) => {
       setActive(to);
@@ -42,6 +42,8 @@ const DrawerContent = (
     {name: t('screens.components'), to: 'Components', icon: assets.components},
     {name: t('screens.register'), to: 'Register', icon: assets.register},
   ];
+    
+    
 
   return (
     <DrawerContentScrollView
