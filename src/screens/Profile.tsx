@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Platform, Linking, Alert} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
-
 import {Block, Button, Image, Text} from '../components/';
 import {useData, useTheme, useTranslation} from '../hooks/';
+import CountDown from 'react-native-countdown-fixed';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -12,11 +12,22 @@ const isAndroid = Platform.OS === 'android';
 
 const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) => {
     const {assets, colors, gradients, sizes} = useTheme();
-
     const [status, setStatus] = useState('Available');
+    const [expireTime, setExpireTime] = useState();
+    const [timeLeft, setTimeLeft] = useState(15);
+
     
-    function activateCoupon() {
+    function activate() {
         setStatus('Active');
+        now = new Date();
+        expireAt = new Date(now.getTime() + 15*60000)
+        // Set display time.
+        setExpireTime(expireAt.toLocaleTimeString());
+        console.log(expireAt.toISOString());
+    };
+    
+    function expire() {
+        setStatus('Expired');
     };
     
     const confirmActivate = useCallback(
@@ -32,7 +43,7 @@ const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) =
                     },
                     {
                         text: 'Activate',
-                        onPress: () => activateCoupon(),
+                        onPress: () => activate(),
                         style: 'default',
                     },
                 ],
@@ -78,12 +89,25 @@ const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) =
                       radius={sizes.cardRadius}>
                         <Block color="rgba(0,0,0,0.1)" padding={sizes.xl} align="center">
                             <Image source={{uri: logo}} width={80} height={80} center/>
-                            <Text white h4 margin={sizes.m}>15:00</Text>
+                            <Block padding={sizes.padding}>
+                                <CountDown
+                                    until={5}
+                                    onFinish={() => expire()}
+                                    digitStyle={{backgroundColor: '#FFF'}}
+                                    timeToShow={['M', 'S']}
+                                    timeLabels={{}}
+                                    size={20}
+                                    showSeparator
+                                />
+                            </Block>
                             <Text white h6>Tulsa Coffee Crawl</Text>
                             <Text white p center size={sizes.s}>1 Free Small Iced or Hot Coffee</Text>
                         </Block>
                     </Image>
                 </Block>
+                <Text paddingTop={sizes.padding} center secondary>
+                    Expires at {expireTime}
+                </Text>
             </Block>
         );
     } else if (status == 'Expired') {
@@ -137,20 +161,20 @@ const Profile = ({navigation, route}) => {
   const IMAGE_VERTICAL_MARGIN =
     (sizes.width - (IMAGE_VERTICAL_SIZE + sizes.sm) * 2) / 2;
 
-  const handleSocialLink = useCallback(
-    (type: 'twitter' | 'dribbble') => {
-      const url =
-        type === 'twitter'
-          ? `https://twitter.com/${user?.social?.twitter}`
-          : `https://dribbble.com/${user?.social?.dribbble}`;
-      try {
-        Linking.openURL(url);
-      } catch (error) {
-//        alert(`Cannot open URL: ${url}`);
-      }
-    },
-    [user],
-  );
+//  const handleSocialLink = useCallback(
+//    (type: 'twitter' | 'dribbble') => {
+//      const url =
+//        type === 'twitter'
+//          ? `https://twitter.com/${user?.social?.twitter}`
+//          : `https://dribbble.com/${user?.social?.dribbble}`;
+//      try {
+//        Linking.openURL(url);
+//      } catch (error) {
+////        alert(`Cannot open URL: ${url}`);
+//      }
+//    },
+//    [user],
+//  );
 
   return (
       <Block safe marginTop={sizes.md}>
