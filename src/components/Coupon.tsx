@@ -13,15 +13,52 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
     const [status, setStatus] = useState('Loading');
     const [expireTime, setExpireTime] = useState();
     const [userId, setUserId] = useState('');
-    const [couponData, setCouponData] = useState({});
+    const [couponData, setCouponData] = useState(null);
     const [remaining, setRemaining] = useState(900);
     
     useEffect(() => {
-        getData()
+        getUserData()
     }, [])
+    
+    // Get user data.
+    async function getUserData() {
+        console.log('-----GET USER-----')
+        const { data: { user } } = await supabase.auth.getUser()
+        setUserId(user.id);
+    }
+    
+    //TODO Get coupon data.
+    useEffect(() => {
+        getCouponData()
+    }, [userId])
+    
+    async function getCouponData() {
+        if (!userId) {
+            return
+        }
+        console.log('----GET COUPON----')
+        console.log(userId);
+        const { data, error } = await supabase.from('user_coupons')
+            .select('*')
+            .eq('cafe_id', id)
+            .eq('user_id', userId)
+
+        console.log(data);
+        if (data.length > 0) {
+            // Set data and parse coupon status.
+            setCouponData(data[0]);
+        } else {
+            // Coupon hasn't been used. Set as available.
+            setStatus('Available');
+        }
+    }
     
     // When coupon data is changed
     useEffect(() => {
+        if (!couponData) {
+            return
+        }
+        console.log('---PARSE COUPON---')
         const activated = new Date(couponData.activated);
         const now = new Date()
         const elapsed = Math.floor((now.getTime() - activated.getTime())/1000)
@@ -35,29 +72,6 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
         console.log('remaining'+elapsed);
     }, [couponData])
 
-    // Get user ID and coupon data.
-    async function getData() {
-        const { data: { user } } = await supabase.auth.getUser()
-        setUserId(user.id);
-        
-        if (user) {
-            const { data, error } = await supabase.from('user_coupons')
-                .select('*')
-                .eq('cafe_id', id)
-                .eq('user_id', user.id)
-
-            if (data.length > 0) {
-                // Set data and parse coupon status.
-                setCouponData(data[0]);
-//                setStatus('Active');
-            } else {
-                // Coupon hasn't been used. Set as available.
-                setStatus('Available');
-            }
-        }
-        
-        
-    }
  
     async function activate() {
         setStatus('Active');
@@ -67,6 +81,8 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
         expireAt = new Date(now.getTime() + 15*60000)
         setExpireTime(expireAt.toLocaleTimeString());
         
+        console.log('userId: '+userId)
+        
         // Create coupon in DB.
         const { data, error } = await supabase
           .from('user_coupons')
@@ -74,6 +90,8 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
               user_id: userId,
               cafe_id: id,
           }])
+        console.log('data '+data)
+        console.log(error)
     };
     
     function expire() {
@@ -109,8 +127,8 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
     
     if (status == 'Loading') {
         return (
-            <Block padding={sizes.padding}>
-                <ActivityIndicator size="small" color="#0000ff" />
+            <Block padding={sizes.l}>
+                <ActivityIndicator size="small" color="#212121" />
             </Block>
         )
     } else if (status == 'Available') {
