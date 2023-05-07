@@ -7,14 +7,15 @@ import {useData, useTheme, useTranslation} from '../hooks/';
 import CountDown from 'react-native-countdown-fixed';
 import { supabase } from '../services/supabaseClient';
 import { Session } from '@supabase/supabase-js'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
     const {assets, colors, gradients, sizes} = useTheme();
     const [status, setStatus] = useState('Loading');
-    const [expireTime, setExpireTime] = useState();
-    const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState(null);
     const [couponData, setCouponData] = useState(null);
     const [remaining, setRemaining] = useState(900);
+    const [expireTime, setExpireTime] = useState('');
     
     useEffect(() => {
         getUserData()
@@ -23,7 +24,10 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
     // Get user data.
     async function getUserData() {
         console.log('-----GET USER-----')
-        const { data: { user } } = await supabase.auth.getUser()
+        let user = await AsyncStorage.getItem('@user')
+        user = JSON.parse(user)
+        console.log(user.id)
+//        const { data: { user } } = await supabase.auth.getUser()
         setUserId(user.id);
     }
     
@@ -63,6 +67,9 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
         const now = new Date()
         const elapsed = Math.floor((now.getTime() - activated.getTime())/1000)
         const remains = 900 - elapsed;
+        expireAt = new Date(activated.getTime() + 15*60000)
+        setExpireTime(expireAt.toLocaleTimeString());
+        console.log(expireTime);
         if (remains > 0) {
             setRemaining(remains)
             setStatus('Active')
@@ -74,6 +81,11 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
 
  
     async function activate() {
+        console.log(userId);
+        if (!userId) {
+            getUserData()
+            return
+        }
         setStatus('Active');
         let now = new Date();
         
@@ -121,7 +133,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
                 },
             );
         },
-        [],
+        [userId],
     );
     
     
@@ -160,7 +172,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
                     <Image
                       background
                       resizeMode="cover"
-                      source={assets.background}
+                      source={assets.couponBackground}
                       radius={sizes.cardRadius}>
                         <Block color="rgba(0,0,0,0.1)" padding={sizes.xl} align="center">
                             <Image source={{uri: logo}} width={80} height={80} center/>

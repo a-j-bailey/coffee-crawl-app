@@ -108,6 +108,8 @@ export const ASSETS: ThemeAssets = {
   x5: require('../assets/images/x5.png'),
   gle: require('../assets/images/gle.png'),
   tesla: require('../assets/images/tesla.png'),
+  
+  couponBackground: require('../assets/images/couponBackground.gif'),
 };
 
 export const FONTS: ThemeFonts = {

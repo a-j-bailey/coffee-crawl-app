@@ -20,9 +20,9 @@ const Home = () => {
     async function getCountries() {        
         let { data: cafes, error } = await supabase.from('cafes').select('*')
         setCafes(cafes);
-        cafes.forEach((cafe) => {
-            console.log(cafe);
-        })
+//        cafes.forEach((cafe) => {
+//            console.log(cafe);
+//        })
 //        console.log('cafes: '+cafes2);
 //        console.log('error: '+error);
     };
