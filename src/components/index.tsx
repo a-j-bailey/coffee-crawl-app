@@ -8,6 +8,7 @@ import Checkbox from './Checkbox';
 import Image from './Image';
 import Article from './Article';
 import Cafe from './Cafe';
+import Coupon from './Coupon';
 
 export {
   Block,
@@ -20,4 +21,5 @@ export {
   Article,
   Cafe,
   Modal,
+  Coupon,
 };
