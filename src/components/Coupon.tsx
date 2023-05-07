@@ -17,8 +17,6 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
     const [remaining, setRemaining] = useState(900);
     
     useEffect(() => {
-//        getUserID();
-//        getCouponData();
         getData()
     }, [])
     
@@ -60,30 +58,10 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
         
         
     }
-    
-    async function getUserID() {
-        const { data: { user } } = await supabase.auth.getUser()
-        setUserId(user.id);
-        console.log('fetch user');
-    }
-    
-    async function getCouponData() {
-        console.log(userId);
-        const { data, error } = await supabase.from('user_coupons')
-            .select('*')
-            .eq('cafe_id', id)
-            .eq('user_id', userId)
-        
-        console.log('fetch coupon');
-
-        console.log(data);
-        console.log(error);
-    }
  
     async function activate() {
         setStatus('Active');
         let now = new Date();
-        let uid = await getUserID();
         
         // Set display time.
         expireAt = new Date(now.getTime() + 15*60000)
