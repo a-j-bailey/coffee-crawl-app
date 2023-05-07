@@ -5,6 +5,8 @@ import {useNavigation} from '@react-navigation/core';
 import {Block, Button, Image, Text} from '../components/';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import CountDown from 'react-native-countdown-fixed';
+import { supabase } from '../services/supabaseClient';
+import { Session } from '@supabase/supabase-js'
 
 const isAndroid = Platform.OS === 'android';
 
@@ -15,15 +17,33 @@ const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) =
     const [status, setStatus] = useState('Available');
     const [expireTime, setExpireTime] = useState();
     const [timeLeft, setTimeLeft] = useState(15);
+    const [userId, setUserId] = useState('');
 
+    async function getUserID() {
+        const { data: { user } } = await supabase.auth.getUser()
+        console.log('Set UID: '+user.id);
+        return user.id;
+//        setUserId(user.id);
+    }
     
-    function activate() {
+    async function activate() {
         setStatus('Active');
         now = new Date();
         expireAt = new Date(now.getTime() + 15*60000)
         // Set display time.
         setExpireTime(expireAt.toLocaleTimeString());
         console.log(expireAt.toISOString());
+//        console.log(userId);
+        let uid = await getUserID();
+        console.log(uid);
+        const { data, error } = await supabase
+          .from('user_coupons')
+          .insert([{
+              user_id: uid,
+              cafe_id: id,
+          }])
+        console.log('data: '+data);
+        console.log('error: '+error);
     };
     
     function expire() {
@@ -91,7 +111,7 @@ const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) =
                             <Image source={{uri: logo}} width={80} height={80} center/>
                             <Block padding={sizes.padding}>
                                 <CountDown
-                                    until={5}
+                                    until={900}
                                     onFinish={() => expire()}
                                     digitStyle={{backgroundColor: '#FFF'}}
                                     timeToShow={['M', 'S']}
@@ -148,7 +168,7 @@ const Profile = ({navigation, route}) => {
         logo,
         coupon_value
     } = route.params.cafe;
-
+    
   const {user} = useData();
   const {t} = useTranslation();
 //  const navigation = useNavigation();
