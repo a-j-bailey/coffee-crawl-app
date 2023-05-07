@@ -9,7 +9,6 @@ const Home = () => {
     const {t} = useTranslation();
     const [tab, setTab] = useState<number>(0);
     const {following, trending} = useData();
-//    const [cafes, setCafes] = useState(following);
     const {assets, colors, fonts, gradients, sizes} = useTheme();
 
     const [cafes, setCafes] = useState([]);
@@ -22,7 +21,7 @@ const Home = () => {
         let { data: cafes, error } = await supabase.from('cafes').select('*')
         setCafes(cafes);
         cafes.forEach((cafe) => {
-            console.log(cafe.name);
+            console.log(cafe);
         })
 //        console.log('cafes: '+cafes2);
 //        console.log('error: '+error);

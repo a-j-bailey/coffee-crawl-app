@@ -2,159 +2,10 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Platform, Linking, Alert} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
-import {Block, Button, Image, Text} from '../components/';
+import {Block, Button, Image, Text, Coupon} from '../components/';
 import {useData, useTheme, useTranslation} from '../hooks/';
-import CountDown from 'react-native-countdown-fixed';
-import { supabase } from '../services/supabaseClient';
-import { Session } from '@supabase/supabase-js'
 
 const isAndroid = Platform.OS === 'android';
-
-/* drawer menu screens navigation */
-
-const CouponContainer = ({id, image, title, type, linkLabel, location, logo} ) => {
-    const {assets, colors, gradients, sizes} = useTheme();
-    const [status, setStatus] = useState('Available');
-    const [expireTime, setExpireTime] = useState();
-    const [timeLeft, setTimeLeft] = useState(15);
-    const [userId, setUserId] = useState('');
-
-    async function getUserID() {
-        const { data: { user } } = await supabase.auth.getUser()
-        console.log('Set UID: '+user.id);
-        return user.id;
-//        setUserId(user.id);
-    }
-    
-    async function activate() {
-        setStatus('Active');
-        now = new Date();
-        expireAt = new Date(now.getTime() + 15*60000)
-        // Set display time.
-        setExpireTime(expireAt.toLocaleTimeString());
-        console.log(expireAt.toISOString());
-//        console.log(userId);
-        let uid = await getUserID();
-        console.log(uid);
-        const { data, error } = await supabase
-          .from('user_coupons')
-          .insert([{
-              user_id: uid,
-              cafe_id: id,
-          }])
-        console.log('data: '+data);
-        console.log('error: '+error);
-    };
-    
-    function expire() {
-        setStatus('Expired');
-    };
-    
-    const confirmActivate = useCallback(
-        () => {
-            Alert.alert(
-                'Activate Coupon?',
-                'Coupons expire after 15 minutes and cannot be reused.',
-                [
-                    {
-                        text: 'Cancel',
-                        onPress: () => {},
-                        style: 'cancel',
-                    },
-                    {
-                        text: 'Activate',
-                        onPress: () => activate(),
-                        style: 'default',
-                    },
-                ],
-                {
-                    cancelable: true,
-                    onDismiss: () => {},
-                },
-            );
-        },
-        [],
-    );
-    
-    if (status == 'Available') {
-        return (
-            <Block padding={sizes.padding}>
-                <Button
-                    flex={1}
-                    gradient={gradients.primary}
-                    marginBottom={sizes.base}
-                    shadow
-                    onPress={() => confirmActivate()}>
-                  <Text white bold transform="uppercase">
-                    Activate Coupon
-                  </Text>
-                </Button>
-                <Text center size={10} lineHeight={12}>
-                    Don't activate the coupon until you're ready to use.
-                    Coupons are only redeemable for 15 minutes once activated.
-                </Text>
-            </Block>
-        );
-    } else if (status == 'Active') {
-        return (
-            <Block padding={sizes.l}>
-                <Block
-                    card
-                    padding={0}
-                    marginTop={sizes.sm}>
-                    <Image
-                      background
-                      resizeMode="cover"
-                      source={assets.background}
-                      radius={sizes.cardRadius}>
-                        <Block color="rgba(0,0,0,0.1)" padding={sizes.xl} align="center">
-                            <Image source={{uri: logo}} width={80} height={80} center/>
-                            <Block padding={sizes.padding}>
-                                <CountDown
-                                    until={900}
-                                    onFinish={() => expire()}
-                                    digitStyle={{backgroundColor: '#FFF'}}
-                                    timeToShow={['M', 'S']}
-                                    timeLabels={{}}
-                                    size={20}
-                                    showSeparator
-                                />
-                            </Block>
-                            <Text white h6>Tulsa Coffee Crawl</Text>
-                            <Text white p center size={sizes.s}>1 Free Small Iced or Hot Coffee</Text>
-                        </Block>
-                    </Image>
-                </Block>
-                <Text paddingTop={sizes.padding} center secondary>
-                    Expires at {expireTime}
-                </Text>
-            </Block>
-        );
-    } else if (status == 'Expired') {
-        return (
-            <Block padding={sizes.padding}>
-                <Text gradient={gradients.success} bold transform="uppercase" center>
-                    <Ionicons size={16} name="checkmark-circle-outline"/> Coupon Used
-                </Text>
-                <Block marginTop={sizes.s}>
-                    <Text dark bold center>
-                        I hope you enjoyed your coffee!
-                    </Text>
-                    <Text dark center>
-                        Don't forget to leave a review!
-                    </Text>
-                    <Button flex={1} gradient={gradients.dark} margin={sizes.s}>
-                        <Text white bold marginHorizontal={sizes.s}>
-                            Review on RSTRS App
-                        </Text>
-                    </Button>
-                </Block>
-            </Block>
-        );
-    }
-
-    
-};
 
 const Profile = ({navigation, route}) => {
     const {
@@ -169,32 +20,8 @@ const Profile = ({navigation, route}) => {
         coupon_value
     } = route.params.cafe;
     
-  const {user} = useData();
-  const {t} = useTranslation();
-//  const navigation = useNavigation();
   const {assets, colors, gradients, sizes} = useTheme();
 
-  const IMAGE_SIZE = (sizes.width - (sizes.padding + sizes.sm) * 2) / 3;
-  const IMAGE_VERTICAL_SIZE =
-    (sizes.width - (sizes.padding + sizes.sm) * 2) / 2;
-  const IMAGE_MARGIN = (sizes.width - IMAGE_SIZE * 3 - sizes.padding * 2) / 2;
-  const IMAGE_VERTICAL_MARGIN =
-    (sizes.width - (IMAGE_VERTICAL_SIZE + sizes.sm) * 2) / 2;
-
-//  const handleSocialLink = useCallback(
-//    (type: 'twitter' | 'dribbble') => {
-//      const url =
-//        type === 'twitter'
-//          ? `https://twitter.com/${user?.social?.twitter}`
-//          : `https://dribbble.com/${user?.social?.dribbble}`;
-//      try {
-//        Linking.openURL(url);
-//      } catch (error) {
-////        alert(`Cannot open URL: ${url}`);
-//      }
-//    },
-//    [user],
-//  );
 
   return (
       <Block safe marginTop={sizes.md}>
@@ -223,12 +50,6 @@ const Profile = ({navigation, route}) => {
                   <Text p white marginLeft={sizes.s}>{/*back nav text*/}</Text>
                 </Button>
                 <Block flex={0} align="center">
-                  {/*<Image
-                    width={64}
-                    height={64}
-                    marginBottom={sizes.sm}
-                    source={{uri: user?.avatar}}
-                  />*/}
                     <Image
                         source={{uri: logo}}
                         width={80}
@@ -310,7 +131,7 @@ const Profile = ({navigation, route}) => {
           </Block>
 
           {/*Activate Button*/}
-            <CouponContainer {...route.params.cafe}/>
+            <Coupon {...route.params.cafe}/>
             <Block padding={sizes.padding}>
                 <Text bold transform="uppercase" marginTop={sizes.s}>Address</Text>
                 <Text>{location_address}</Text>
