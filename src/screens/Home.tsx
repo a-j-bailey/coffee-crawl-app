@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-
+import {TouchableOpacity} from 'react-native';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Input, Cafe, Text} from '../components/';
 
@@ -12,31 +12,29 @@ const Home = () => {
     const {assets, colors, fonts, gradients, sizes} = useTheme();
 
     const [cafes, setCafes] = useState([]);
-
+    
+    const [locked, setLocked] = useState(true);
+    
     useEffect(() => {
-        getCountries();
-    }, []);
+        getUserData();
+        getCafes();
+    }, [])
 
-    async function getCountries() {        
-        let { data: cafes, error } = await supabase.from('cafes').select('*')
+    async function getUserData() {
+        let { data, error } = await supabase.from('profiles').select('*')
+        if (data && data[0].purchased) {
+            setLocked(false)
+        }
+    }
+
+    async function getCafes() {
+        let { data: cafes, error } = await supabase.from('cafes').select('*, user_coupons (*)')
         setCafes(cafes);
 //        cafes.forEach((cafe) => {
+//            console.log('----'+cafe.name+'----')
 //            console.log(cafe);
 //        })
-//        console.log('cafes: '+cafes2);
-//        console.log('error: '+error);
     };
-    
-
-
-    
-//  const handleProducts = useCallback(
-//    (tab: number) => {
-//      setTab(tab);
-//      setCafes(tab === 0 ? following : trending);
-//    },
-//    [following, trending, setTab, setCafes],
-//  );
 
   return (
     <Block>
@@ -58,9 +56,24 @@ const Home = () => {
                 marginVertical={sizes.sm}
                 gradient={gradients.menu}
             />
+            <TouchableOpacity onPress={() => setLocked(!locked)}>
+                <Block card white padding={0} marginVertical={sizes.sm}>
+                    <Image
+                      background
+                      resizeMode="cover"
+                      radius={sizes.cardRadius}
+                      source={assets.background}>
+                          <Block color={colors.overlay} padding={sizes.padding}>
+                                <Text h5 white>
+                                    Purchase your ticket to unlock!
+                                </Text>
+                          </Block>
+                    </Image>
+                </Block>
+            </TouchableOpacity>
             <Block row wrap="wrap" justify="space-between" marginVertical={sizes.sm}>
               {cafes?.map((cafe) => (
-                <Cafe cafe={cafe} key={`card-${cafe?.id}`} />
+                <Cafe cafe={cafe} locked={locked} key={`card-${cafe?.id}`} />
               ))}
             </Block>
             <Block
