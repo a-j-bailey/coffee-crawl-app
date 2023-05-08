@@ -40,8 +40,7 @@ const DrawerContent = (
   // screen list for Drawer menu
   const screens = [
     {name: t('screens.home'), to: 'Home', icon: assets.home},
-    {name: t('screens.components'), to: 'Components', icon: assets.components},
-    {name: t('screens.register'), to: 'Register', icon: assets.register},
+    {name: 'Account', to: 'Account', icon: assets.home},
   ];
     
     function logout() {

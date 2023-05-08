@@ -31,7 +31,7 @@ export default () => {
     headerRightContainerStyle: {paddingRight: sizes.s},
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     headerTitle: ({children}: StackHeaderTitleProps) => (
-      <Text p>{children}</Text>
+      <Text p paddingLeft={sizes.sm}>{children}</Text>
     ),
     headerLeft: () => (
       <Button onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
@@ -57,7 +57,7 @@ export default () => {
             position="absolute"
             gradient={gradients?.primary}
           />
-        </TouchableOpacity>*/}
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('Screens', {
@@ -65,7 +65,7 @@ export default () => {
             })
           }>
           <Image source={icons.location} radius={0} color={colors.icon} />
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
       </Block>
     ),
   } as StackHeaderOptions;
