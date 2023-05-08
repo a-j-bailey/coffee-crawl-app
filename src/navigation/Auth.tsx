@@ -11,23 +11,37 @@ export default () => {
     
     const [session, setSession] = useState<Session | null>(null)
     
-    async function storeUser() {
-        try {
-            const jsonValue = JSON.stringify(session.user)
-            await AsyncStorage.setItem('@user', jsonValue)
-        } catch (e) {
-            console.log('failed to store user');
+    async function updateUser(event, thisSession) {
+        console.log(event)
+        if (event == 'SIGNED_IN') {
+            try {
+                const jsonValue = JSON.stringify(thisSession.user)
+                await AsyncStorage.setItem('@user', jsonValue)
+            } catch (e) {
+                console.log('failed to store user');
+            }
+        } else if (event == 'SIGNED_OUT') {
+            try {
+                await AsyncStorage.removeItem('@user')
+            } catch (e) {
+                console.log('failed to remove user');
+            }
         }
+        
+//        await AsyncStorage.removeItem('@user').then(() => {
+//            
+//        })
     }
     
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
-            storeUser();
+//            updateUser();
         })
 
         supabase.auth.onAuthStateChange((_event, session) => {
-          setSession(session)
+            setSession(session)
+            updateUser(_event, session);
         })
     }, [])
 

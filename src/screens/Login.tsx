@@ -1,11 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-
 import {useData, useTheme, useTranslation} from '../hooks/';
 import * as regex from '../constants/regex';
 import {Block, Button, Input, Image, Text, Checkbox} from '../components/';
-
 import { supabase } from '../services/supabaseClient';
 
 const isAndroid = Platform.OS === 'android';
@@ -35,9 +33,14 @@ const Login = () => {
     
     async function signUpWithEmail() {
         setLoading(true);
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: {
+              data: {
+                full_name: name,
+              }
+            }
         });
         
         if (error) Alert.alert(error.message);
@@ -196,7 +199,7 @@ const Login = () => {
                                 shadow={!isAndroid}
                                 marginTop={sizes.m}
                                 marginBottom={sizes.s}
-                                onPress={() => signInWithEmail()}>
+                                onPress={() => signUpWithEmail()}>
                                 <Text bold white transform="uppercase">
                                     Sign Up
                                 </Text>

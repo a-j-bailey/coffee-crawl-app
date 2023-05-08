@@ -25,6 +25,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
     async function getUserData() {
         console.log('-----GET USER-----')
         let user = await AsyncStorage.getItem('@user')
+        console.log(user);
         user = JSON.parse(user)
         console.log(user.id)
 //        const { data: { user } } = await supabase.auth.getUser()

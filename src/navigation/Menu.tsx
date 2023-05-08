@@ -12,6 +12,7 @@ import {
 import Screens from './Screens';
 import {Block, Text, Switch, Button, Image} from '../components';
 import {useData, useTheme, useTranslation} from '../hooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
@@ -43,7 +44,9 @@ const DrawerContent = (
     {name: t('screens.register'), to: 'Register', icon: assets.register},
   ];
     
-    
+    function logout() {
+        supabase.auth.signOut()
+    }
 
   return (
     <DrawerContentScrollView
@@ -104,7 +107,7 @@ const DrawerContent = (
           marginVertical={sizes.sm}
           gradient={gradients.menu}
         />
-          <Button title="Sign Out" onPress={() => supabase.auth.signOut()}>
+          <Button title="Sign Out" onPress={() => logout()}>
             <Text color={colors.danger}>Sign Out</Text>
           </Button>
       </Block>
