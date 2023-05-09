@@ -48,15 +48,15 @@ const Cafe = ({cafe, locked, purchased}) => {
                       height: isHorizontal ? 114 : 110,
                       width: !isHorizontal ? '100%' : sizes.width / 2.435,
                     }}>
-                    {!purchased &&
-                        <Block center align="center" color="#FFFFFF90" borderRadius={sizes.cardRadius}>
+                    <Block center align="center" color="#FFFFFF90" borderRadius={sizes.cardRadius}>
+                        {!purchased &&
                             <Ionicons
                                 size={30}
                                 name="lock-closed"
                                 color={colors.black}
                             />
-                        </Block>
-                    }
+                        }
+                    </Block>
                 </Image>
                 <Block
                     paddingTop={sizes.s}
