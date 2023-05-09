@@ -2,6 +2,7 @@ import React, {useCallback, useState, useEffect} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Input, Cafe, Text} from '../components/';
+import CountDown from 'react-native-countdown-fixed';
 
 import { supabase } from '../services/supabaseClient';
 
@@ -28,8 +29,10 @@ const Home = () => {
     }
 
     async function getCafes() {
-        let { data: cafes, error } = await supabase.from('cafes').select('*, user_coupons (*)')
-        setCafes(cafes);
+        let { data, error } = await supabase.from('events').select('*, cafes (*)')
+        if (data) {
+            setCafes(data[0].cafes)
+        }
 //        cafes.forEach((cafe) => {
 //            console.log('----'+cafe.name+'----')
 //            console.log(cafe);
@@ -71,6 +74,29 @@ const Home = () => {
                     </Image>
                 </Block>
             </TouchableOpacity>
+            <Block>
+                <Image
+                  background
+                  resizeMode="cover"
+                  radius={sizes.cardRadius}
+                  source={assets.grad}>
+                      <Block padding={sizes.padding}>
+                            <Text h4 white center>You're In!</Text>
+                            <Block padding={sizes.s}>
+                                <CountDown
+                                    until={900}
+                                    onFinish={() => expire()}
+                                    digitStyle={{backgroundColor: '#FFF'}}
+                                    timeToShow={['D', 'H', 'M', 'S']}
+                                    timeLabels={{d:'Days', h:'Hours', m:'Minutes', s:'Seconds'}}
+                                    timeLabelsStyle={{}}
+                                    size={15}
+                                />
+                            </Block>
+                            <Text p size={sizes.sm} white center>Get ready for some great coffee!</Text>
+                      </Block>
+                </Image>
+            </Block>
             <Block row wrap="wrap" justify="space-between" marginVertical={sizes.sm}>
               {cafes?.map((cafe) => (
                 <Cafe cafe={cafe} locked={locked} key={`card-${cafe?.id}`} />

@@ -110,6 +110,7 @@ export const ASSETS: ThemeAssets = {
   tesla: require('../assets/images/tesla.png'),
   
   couponBackground: require('../assets/images/couponBackground.gif'),
+  grad: require('../assets/images/grad.png'),
 };
 
 export const FONTS: ThemeFonts = {
