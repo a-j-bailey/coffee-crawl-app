@@ -15,28 +15,34 @@ const Home = () => {
     const [cafes, setCafes] = useState([]);
     
     const [locked, setLocked] = useState(true);
+    const [purchased, setPurchased] = useState(false);
+    const [remaining, setRemaining] = useState(0);
     
     useEffect(() => {
         getUserData();
         getCafes();
     }, [])
 
+
+    // Get user data.
     async function getUserData() {
         let { data, error } = await supabase.from('profiles').select('*')
+        console.log('purchased: '+data[0].purchased)
         if (data && data[0].purchased) {
-            setLocked(false)
+            setPurchased(true)
         }
     }
 
+    // Get cafe data.
     async function getCafes() {
         let { data, error } = await supabase.from('events').select('*, cafes (*)')
         if (data) {
             setCafes(data[0].cafes)
         }
-//        cafes.forEach((cafe) => {
-//            console.log('----'+cafe.name+'----')
-//            console.log(cafe);
-//        })
+        const start = new Date(data[0].start)
+        const now = new Date()
+        const remains = Math.floor((start.getTime() - now.getTime())/1000)
+        setRemaining(remains)
     };
 
   return (
@@ -59,47 +65,51 @@ const Home = () => {
                 marginVertical={sizes.sm}
                 gradient={gradients.menu}
             />
-            <TouchableOpacity onPress={() => setLocked(!locked)}>
-                <Block card white padding={0} marginVertical={sizes.sm}>
+            {!purchased &&
+                <TouchableOpacity onPress={() => setPurchased(!purchased)}>
+                    <Block card white padding={0} marginVertical={sizes.sm}>
+                        <Image
+                          background
+                          resizeMode="cover"
+                          radius={sizes.cardRadius}
+                          source={assets.background}>
+                              <Block color={colors.overlay} padding={sizes.padding}>
+                                    <Text h5 white>
+                                        Purchase your ticket to unlock!
+                                    </Text>
+                              </Block>
+                        </Image>
+                    </Block>
+                </TouchableOpacity>              
+            }
+            {(!locked || purchased) && 
+                <Block>
                     <Image
                       background
                       resizeMode="cover"
                       radius={sizes.cardRadius}
-                      source={assets.background}>
-                          <Block color={colors.overlay} padding={sizes.padding}>
-                                <Text h5 white>
-                                    Purchase your ticket to unlock!
-                                </Text>
+                      source={assets.grad}>
+                          <Block padding={sizes.padding}>
+                                <Text h4 white center>You're In!</Text>
+                                <Block padding={sizes.s}>
+                                    <CountDown
+                                        until={remaining}
+                                        onFinish={() => expire()}
+                                        digitStyle={{backgroundColor: '#FFF'}}
+                                        timeToShow={['D', 'H', 'M', 'S']}
+                                        timeLabels={{d:'Days', h:'Hours', m:'Minutes', s:'Seconds'}}
+                                        timeLabelsStyle={{}}
+                                        size={15}
+                                    />
+                                </Block>
+                                <Text p size={sizes.sm} white center>Get ready for some great coffee!</Text>
                           </Block>
                     </Image>
                 </Block>
-            </TouchableOpacity>
-            <Block>
-                <Image
-                  background
-                  resizeMode="cover"
-                  radius={sizes.cardRadius}
-                  source={assets.grad}>
-                      <Block padding={sizes.padding}>
-                            <Text h4 white center>You're In!</Text>
-                            <Block padding={sizes.s}>
-                                <CountDown
-                                    until={900}
-                                    onFinish={() => expire()}
-                                    digitStyle={{backgroundColor: '#FFF'}}
-                                    timeToShow={['D', 'H', 'M', 'S']}
-                                    timeLabels={{d:'Days', h:'Hours', m:'Minutes', s:'Seconds'}}
-                                    timeLabelsStyle={{}}
-                                    size={15}
-                                />
-                            </Block>
-                            <Text p size={sizes.sm} white center>Get ready for some great coffee!</Text>
-                      </Block>
-                </Image>
-            </Block>
+            }
             <Block row wrap="wrap" justify="space-between" marginVertical={sizes.sm}>
               {cafes?.map((cafe) => (
-                <Cafe cafe={cafe} locked={locked} key={`card-${cafe?.id}`} />
+                <Cafe cafe={cafe} locked={locked} purchased={purchased} key={`card-${cafe?.id}`} />
               ))}
             </Block>
             <Block
