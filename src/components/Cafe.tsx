@@ -8,7 +8,7 @@ import Text from './Text';
 import {IProduct} from '../constants/types';
 import {useTheme, useTranslation} from '../hooks/';
 
-const Cafe = ({cafe, locked}) => {
+const Cafe = ({cafe, locked, purchased}) => {
     const {id, image, name, linkLabel, location_short} = cafe;
     
     let type = 'vertical';
@@ -48,13 +48,15 @@ const Cafe = ({cafe, locked}) => {
                       height: isHorizontal ? 114 : 110,
                       width: !isHorizontal ? '100%' : sizes.width / 2.435,
                     }}>
-                    <Block center align="center" color="#FFFFFF90" borderRadius={sizes.cardRadius}>
-                        <Ionicons
-                            size={30}
-                            name="lock-closed"
-                            color={colors.black}
-                      />
-                    </Block>
+                    {!purchased &&
+                        <Block center align="center" color="#FFFFFF90" borderRadius={sizes.cardRadius}>
+                            <Ionicons
+                                size={30}
+                                name="lock-closed"
+                                color={colors.black}
+                            />
+                        </Block>
+                    }
                 </Image>
                 <Block
                     paddingTop={sizes.s}
