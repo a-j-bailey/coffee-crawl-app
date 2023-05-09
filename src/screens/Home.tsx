@@ -13,7 +13,7 @@ const Home = () => {
     const {assets, colors, fonts, gradients, sizes} = useTheme();
 
     const [cafes, setCafes] = useState([]);
-    
+    const [title, setTitle] = useState('');
     const [locked, setLocked] = useState(true);
     const [purchased, setPurchased] = useState(false);
     const [remaining, setRemaining] = useState(0);
@@ -39,6 +39,7 @@ const Home = () => {
         if (data) {
             setCafes(data[0].cafes)
         }
+        setTitle(data[0].name)
         const start = new Date(data[0].start)
         const now = new Date()
         const remains = Math.floor((start.getTime() - now.getTime())/1000)
@@ -54,7 +55,7 @@ const Home = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: sizes.l}}>
             <Text h5 center>Welcome to the</Text>
-            <Text h4 center>2024 Tulsa Coffee Crawl</Text>
+            <Text h4 center paddingHorizontal={sizes.l}>{title}</Text>
             <Text center>
                 Your ticket to a whole month of coffee from the greatest coffee shops in Tulsa.
             </Text>
