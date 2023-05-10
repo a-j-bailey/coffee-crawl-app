@@ -132,20 +132,61 @@ const Profile = ({navigation, route}) => {
 
           {/*Activate Button*/}
             <Coupon {...route.params.cafe}/>
-            <Block padding={sizes.padding}>
-                <Text bold transform="uppercase" marginTop={sizes.s}>Address</Text>
-                <Text>{location_address}</Text>
+            <Block padding={sizes.s}>
+                <Text h5 bold marginLeft={sizes.xs}>Address</Text>
+                <Block
+                    backgroundColor={colors.card}
+                    borderRadius={sizes.s}
+                    padding={sizes.cardPadding}
+                    marginBottom={sizes.s}>
+                    <Block
+                        row
+                        justify="space-between">
+                        <Text>{location_address}</Text>
+                        <Ionicons
+                            size={18}
+                            name="navigate"
+                            color={colors.gray}
+                          />
+                    </Block>
+                </Block>
+                <Text h5 bold marginLeft={sizes.xs}>Hours</Text>
+                <Block
+                    backgroundColor={colors.card}
+                    borderRadius={sizes.s}
+                    padding={sizes.cardPadding}
+                    marginBottom={sizes.s}>
+                    <Block row justify="space-between">
+                        <Text>Monday:</Text>
+                        <Text align="right">10am - 6pm</Text>
+                    </Block>
+                    <Block row justify="space-between">
+                        <Text>Tuesday:</Text>
+                        <Text align="right">10am - 6pm</Text>
+                    </Block>
+                    <Block row justify="space-between">
+                        <Text>Wednesday:</Text>
+                        <Text align="right">10am - 6pm</Text>
+                    </Block>
+                    <Block row justify="space-between">
+                        <Text>Thursday:</Text>
+                        <Text align="right">10am - 6pm</Text>
+                    </Block>
+                    <Block row justify="space-between">
+                        <Text>Friday:</Text>
+                        <Text align="right">10am - 6pm</Text>
+                    </Block>
+                    <Block row justify="space-between">
+                        <Text>Saturday:</Text>
+                        <Text align="right">10am - 6pm</Text>
+                    </Block>
+                    <Block row justify="space-between">
+                        <Text>Sunday:</Text>
+                        <Text align="right">Closed</Text>
+                    </Block>
+                </Block>
                 <Text bold transform="uppercase" marginTop={sizes.s}>Hours</Text>
-                <Text>Mon: 10am - 6pm</Text>
-                <Text>Tue: 10am - 6pm</Text>
-                <Text>Wed: 10am - 6pm</Text>
-                <Text>Thu: 10am - 6pm</Text>
-                <Text>Fri: 10am - 6pm</Text>
-                <Text>Sat: 10am - 6pm</Text>
-                <Text>Sun: Closed</Text>
             </Block>
-            {/*Mock Coupon*/}
-            
         </Block>
       </Block>
     </Block>
