@@ -212,7 +212,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
                     </Text>
                     <Button flex={1} gradient={gradients.dark} margin={sizes.s}>
                         <Text white bold marginHorizontal={sizes.s}>
-                            Review on RSTRS App
+                            Leave a Review
                         </Text>
                     </Button>
                 </Block>
