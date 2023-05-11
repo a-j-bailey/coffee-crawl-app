@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Platform, Linking, Alert} from 'react-native';
+import {Platform, Linking, Alert, TouchableOpacity} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
 import {Block, Button, Image, Text, Coupon} from '../components/';
@@ -24,7 +24,6 @@ const Profile = ({navigation, route}) => {
     } = route.params.cafe;
     
   const {assets, colors, gradients, sizes} = useTheme();
-    
 
   return (
       <Block safe marginTop={sizes.md}>
@@ -135,16 +134,18 @@ const Profile = ({navigation, route}) => {
                     borderRadius={sizes.s}
                     padding={sizes.cardPadding}
                     marginBottom={sizes.m}>
-                    <Block
-                        row
-                        justify="space-between">
-                        <Text>{location_address}</Text>
-                        <Ionicons
-                            size={18}
-                            name="navigate"
-                            color={colors.gray}
-                          />
-                    </Block>
+                    <TouchableOpacity onPress={() => Linking.openURL('http://maps.apple.com/?address='+location_address)}>
+                        <Block
+                            row
+                            justify="space-between">
+                            <Text>{location_address}</Text>
+                            <Ionicons
+                                size={18}
+                                name="navigate"
+                                color={colors.gray}
+                              />
+                        </Block>
+                    </TouchableOpacity>
                 </Block>
                 <Text h5 bold marginLeft={sizes.xs}>Hours</Text>
                 <Block
