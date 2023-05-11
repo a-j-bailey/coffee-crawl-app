@@ -17,6 +17,7 @@ const Profile = ({navigation, route}) => {
         location_short,
         location_address,
         logo,
+        website,
         coupon_value,
         social_links
     } = route.params.cafe;
@@ -63,19 +64,21 @@ const Profile = ({navigation, route}) => {
                     {location_short}
                   </Text>
                   <Block row marginVertical={sizes.m}>
-                      <Button
-                      shadow={false}
-                      radius={sizes.m}
-                      color="rgba(255,255,255,0.2)"
-                      outlined={String(colors.white)}
-                      onPress={() => handleSocialLink('dribbble')}
-                      marginHorizontal={sizes.s}>
-                          <Ionicons
-                            size={18}
-                            name="globe-outline"
-                            color={colors.white}
-                          />
-                      </Button>
+                      {(website) && (
+                          <Button
+                          shadow={false}
+                          radius={sizes.m}
+                          color="rgba(255,255,255,0.2)"
+                          outlined={String(colors.white)}
+                          onPress={() => Linking.openURL(website)}
+                          marginHorizontal={sizes.s}>
+                              <Ionicons
+                                size={18}
+                                name="globe-outline"
+                                color={colors.white}
+                              />
+                          </Button>
+                      )}
                       {(social_links) && Object.keys(social_links).map((k, i) => (
                           <Button
                           key={k}
