@@ -154,7 +154,7 @@ const Profile = ({navigation, route}) => {
                     padding={sizes.cardPadding}
                     marginBottom={sizes.m}>
                     {(hours_of_operation) && Object.keys(hours_of_operation).map((k, i) => (
-                        <Block row justify="space-between">
+                        <Block row justify="space-between" key={i}>
                             <Text>{hours_of_operation[k].days}</Text>
                             <Text align="right">{hours_of_operation[k].hours}</Text>
                         </Block>
