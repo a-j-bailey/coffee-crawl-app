@@ -9,7 +9,7 @@ import { supabase } from '../services/supabaseClient';
 import { Session } from '@supabase/supabase-js'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
+const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app}) => {
     const {assets, colors, gradients, sizes} = useTheme();
     const [status, setStatus] = useState('Loading');
     const [userId, setUserId] = useState(null);
@@ -210,7 +210,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo}) => {
                     <Text dark center>
                         Don't forget to leave a review!
                     </Text>
-                    <Button flex={1} gradient={gradients.dark} margin={sizes.s}>
+                    <Button flex={1} gradient={gradients.dark} margin={sizes.s} onPress={() => Linking.openURL(roasters_app)}>
                         <Text white bold marginHorizontal={sizes.s}>
                             Leave a Review
                         </Text>
