@@ -19,7 +19,8 @@ const Profile = ({navigation, route}) => {
         logo,
         website,
         coupon_value,
-        social_links
+        social_links,
+        hours_of_operation
     } = route.params.cafe;
     
   const {assets, colors, gradients, sizes} = useTheme();
@@ -133,7 +134,7 @@ const Profile = ({navigation, route}) => {
                     backgroundColor={colors.card}
                     borderRadius={sizes.s}
                     padding={sizes.cardPadding}
-                    marginBottom={sizes.s}>
+                    marginBottom={sizes.m}>
                     <Block
                         row
                         justify="space-between">
@@ -150,35 +151,13 @@ const Profile = ({navigation, route}) => {
                     backgroundColor={colors.card}
                     borderRadius={sizes.s}
                     padding={sizes.cardPadding}
-                    marginBottom={sizes.s}>
-                    <Block row justify="space-between">
-                        <Text>Monday:</Text>
-                        <Text align="right">10am - 6pm</Text>
-                    </Block>
-                    <Block row justify="space-between">
-                        <Text>Tuesday:</Text>
-                        <Text align="right">10am - 6pm</Text>
-                    </Block>
-                    <Block row justify="space-between">
-                        <Text>Wednesday:</Text>
-                        <Text align="right">10am - 6pm</Text>
-                    </Block>
-                    <Block row justify="space-between">
-                        <Text>Thursday:</Text>
-                        <Text align="right">10am - 6pm</Text>
-                    </Block>
-                    <Block row justify="space-between">
-                        <Text>Friday:</Text>
-                        <Text align="right">10am - 6pm</Text>
-                    </Block>
-                    <Block row justify="space-between">
-                        <Text>Saturday:</Text>
-                        <Text align="right">10am - 6pm</Text>
-                    </Block>
-                    <Block row justify="space-between">
-                        <Text>Sunday:</Text>
-                        <Text align="right">Closed</Text>
-                    </Block>
+                    marginBottom={sizes.m}>
+                    {(hours_of_operation) && Object.keys(hours_of_operation).map((k, i) => (
+                        <Block row justify="space-between">
+                            <Text>{hours_of_operation[k].days}</Text>
+                            <Text align="right">{hours_of_operation[k].hours}</Text>
+                        </Block>
+                    ))}
                 </Block>
             </Block>
             <Text size={12} color={colors.gray} center marginLeft={sizes.xs}>Report An Issue</Text>
