@@ -2,12 +2,15 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Platform, Linking, Alert, ActivityIndicator} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/core';
-import {Block, Button, Image, Text} from '../components/';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import CountDown from 'react-native-countdown-fixed';
 import { supabase } from '../services/supabaseClient';
 import { Session } from '@supabase/supabase-js'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Block from './Block';
+import Button from './Button';
+import Image from './Image';
+import Text from './Text';
 
 const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app}) => {
     const {assets, colors, gradients, sizes} = useTheme();
@@ -72,7 +75,6 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
 
  
     async function activate() {
-        console.log(userId);
         if (!userId) {
             getUserData()
             return
@@ -84,8 +86,6 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
         expireAt = new Date(now.getTime() + 15*60000)
         setExpireTime(expireAt.toLocaleTimeString());
         
-        console.log('userId: '+userId)
-        
         // Create coupon in DB.
         const { data, error } = await supabase
           .from('user_coupons')
@@ -93,8 +93,6 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
               user_id: userId,
               cafe_id: id,
           }])
-        console.log('data '+data)
-        console.log(error)
     };
     
     function expire() {
