@@ -62,31 +62,33 @@ const Profile = ({navigation, route}) => {
                     {location_short}
                   </Text>
                   <Block row marginVertical={sizes.m}>
+                      <Button
+                      shadow={false}
+                      radius={sizes.m}
+                      color="rgba(255,255,255,0.2)"
+                      outlined={String(colors.white)}
+                      onPress={() => handleSocialLink('dribbble')}>
+                          <Ionicons
+                            size={18}
+                            name="globe-outline"
+                            color={colors.white}
+                          />
+                      </Button>
                     <Button
                       shadow={false}
                       radius={sizes.m}
                       marginHorizontal={sizes.sm}
                       color="rgba(255,255,255,0.2)"
                       outlined={String(colors.white)}
-                      onPress={() => handleSocialLink('twitter')}>
+                      onPress={() => Linking.openURL('https://twitter.com')}>
                       <Ionicons
                         size={18}
                         name="logo-instagram"
                         color={colors.white}
                       />
                     </Button>
-                    <Button
-                      shadow={false}
-                      radius={sizes.m}
-                      color="rgba(255,255,255,0.2)"
-                      outlined={String(colors.white)}
-                      onPress={() => handleSocialLink('dribbble')}>
-                      <Ionicons
-                        size={18}
-                        name="globe-outline"
-                        color={colors.white}
-                      />
-                    </Button>
+                    
+                    
                       <Button
                       shadow={false}
                       radius={sizes.m}
@@ -185,8 +187,8 @@ const Profile = ({navigation, route}) => {
                         <Text align="right">Closed</Text>
                     </Block>
                 </Block>
-                <Text bold transform="uppercase" marginTop={sizes.s}>Hours</Text>
             </Block>
+            <Text size={12} color={colors.gray} center marginLeft={sizes.xs}>Report An Issue</Text>
         </Block>
       </Block>
     </Block>
