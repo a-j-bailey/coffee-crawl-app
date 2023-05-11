@@ -27,7 +27,6 @@ const Home = () => {
     // Get user data.
     async function getUserData() {
         let { data, error } = await supabase.from('profiles').select('*')
-        console.log('purchased: '+data[0].purchased)
         if (data && data[0].purchased) {
             setPurchased(true)
         }
