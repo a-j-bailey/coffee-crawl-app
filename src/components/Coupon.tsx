@@ -23,12 +23,8 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
     
     // Get user data.
     async function getUserData() {
-        console.log('-----GET USER-----')
         let user = await AsyncStorage.getItem('@user')
-        console.log(user);
         user = JSON.parse(user)
-        console.log(user.id)
-//        const { data: { user } } = await supabase.auth.getUser()
         setUserId(user.id);
     }
     
@@ -41,14 +37,11 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
         if (!userId) {
             return
         }
-        console.log('----GET COUPON----')
-        console.log(userId);
         const { data, error } = await supabase.from('user_coupons')
             .select('*')
             .eq('cafe_id', id)
             .eq('user_id', userId)
 
-        console.log(data);
         if (data.length > 0) {
             // Set data and parse coupon status.
             setCouponData(data[0]);
@@ -63,21 +56,18 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
         if (!couponData) {
             return
         }
-        console.log('---PARSE COUPON---')
         const activated = new Date(couponData.activated);
         const now = new Date()
         const elapsed = Math.floor((now.getTime() - activated.getTime())/1000)
         const remains = 900 - elapsed;
         expireAt = new Date(activated.getTime() + 15*60000)
         setExpireTime(expireAt.toLocaleTimeString());
-        console.log(expireTime);
         if (remains > 0) {
             setRemaining(remains)
             setStatus('Active')
         } else {
             setStatus('Expired')
         }
-        console.log('remaining'+elapsed);
     }, [couponData])
 
  
