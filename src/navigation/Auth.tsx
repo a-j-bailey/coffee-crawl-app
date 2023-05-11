@@ -12,7 +12,6 @@ export default () => {
     const [session, setSession] = useState<Session | null>(null)
     
     async function updateUser(event, thisSession) {
-        console.log(event)
         if (event == 'SIGNED_IN') {
             try {
                 const jsonValue = JSON.stringify(thisSession.user)
