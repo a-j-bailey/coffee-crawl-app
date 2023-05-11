@@ -17,11 +17,12 @@ const Profile = ({navigation, route}) => {
         location_short,
         location_address,
         logo,
-        coupon_value
+        coupon_value,
+        social_links
     } = route.params.cafe;
     
   const {assets, colors, gradients, sizes} = useTheme();
-
+    
 
   return (
       <Block safe marginTop={sizes.md}>
@@ -67,41 +68,30 @@ const Profile = ({navigation, route}) => {
                       radius={sizes.m}
                       color="rgba(255,255,255,0.2)"
                       outlined={String(colors.white)}
-                      onPress={() => handleSocialLink('dribbble')}>
+                      onPress={() => handleSocialLink('dribbble')}
+                      marginHorizontal={sizes.s}>
                           <Ionicons
                             size={18}
                             name="globe-outline"
                             color={colors.white}
                           />
                       </Button>
-                    <Button
-                      shadow={false}
-                      radius={sizes.m}
-                      marginHorizontal={sizes.sm}
-                      color="rgba(255,255,255,0.2)"
-                      outlined={String(colors.white)}
-                      onPress={() => Linking.openURL('https://twitter.com')}>
-                      <Ionicons
-                        size={18}
-                        name="logo-instagram"
-                        color={colors.white}
-                      />
-                    </Button>
-                    
-                    
-                      <Button
-                      shadow={false}
-                      radius={sizes.m}
-                      marginHorizontal={sizes.sm}
-                      color="rgba(255,255,255,0.2)"
-                      outlined={String(colors.white)}
-                      onPress={() => handleSocialLink('twitter')}>
-                      <Ionicons
-                        size={18}
-                        name="logo-facebook"
-                        color={colors.white}
-                      />
-                    </Button>
+                      {(social_links) && Object.keys(social_links).map((k, i) => (
+                          <Button
+                          key={k}
+                          shadow={false}
+                          radius={sizes.m}
+                          marginHorizontal={sizes.s}
+                          color="rgba(255,255,255,0.2)"
+                          outlined={String(colors.white)}
+                          onPress={() => Linking.openURL(social_links[k])}>
+                              <Ionicons
+                                size={18}
+                                name={"logo-"+k}
+                                color={colors.white}
+                              />
+                          </Button>
+                      ))}
                   </Block>
             </Block>
               </Block>
