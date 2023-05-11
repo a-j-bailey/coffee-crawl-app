@@ -23,7 +23,6 @@ const Cafe = ({cafe, locked, purchased}) => {
     
     const handleNavigation = useCallback(
         (id) => {
-            console.log(id)
             navigation.navigate('Profile', {cafe: cafe});
         },
         [navigation],

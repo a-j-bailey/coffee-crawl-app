@@ -26,16 +26,11 @@ export default () => {
                 console.log('failed to remove user');
             }
         }
-        
-//        await AsyncStorage.removeItem('@user').then(() => {
-//            
-//        })
     }
     
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
-//            updateUser();
         })
 
         supabase.auth.onAuthStateChange((_event, session) => {
