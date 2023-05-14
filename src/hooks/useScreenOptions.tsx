@@ -90,11 +90,7 @@ export default () => {
     pro: {
       ...menu,
       headerTransparent: true,
-      headerTitle: () => (
-        <Text p white semibold>
-          {t('pro.title')}
-        </Text>
-      ),
+      headerTitle: () => null,
       headerRight: () => null,
       headerLeft: () => (
         <Button

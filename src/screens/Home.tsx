@@ -3,7 +3,7 @@ import {TouchableOpacity} from 'react-native';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Input, Cafe, Text} from '../components/';
 import CountDown from 'react-native-countdown-fixed';
-
+import {useNavigation} from '@react-navigation/core';
 import { supabase } from '../services/supabaseClient';
 
 const Home = () => {
@@ -17,6 +17,8 @@ const Home = () => {
     const [locked, setLocked] = useState(true);
     const [purchased, setPurchased] = useState(false);
     const [remaining, setRemaining] = useState(0);
+    
+    const navigation = useNavigation();
     
     useEffect(() => {
         getUserData();
@@ -66,7 +68,7 @@ const Home = () => {
                 gradient={gradients.menu}
             />
             {!purchased &&
-                <TouchableOpacity onPress={() => setPurchased(!purchased)}>
+                <TouchableOpacity onPress={() => navigation.navigate('Pro')}>
                     <Block card white padding={0} marginVertical={sizes.sm}>
                         <Image
                           background

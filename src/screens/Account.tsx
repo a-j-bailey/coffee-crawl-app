@@ -44,6 +44,9 @@ const Account = () => {
                     />
                 </Block>
             </Block>
+            <Button title="Sign Out" onPress={() => logout()} paddingBottom={sizes.l}>
+                <Text color={colors.danger}>Sign Out</Text>
+            </Button>
         </Block>
     );
 };

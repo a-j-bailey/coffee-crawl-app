@@ -105,9 +105,12 @@ const DrawerContent = (
           marginVertical={sizes.sm}
           gradient={gradients.menu}
         />
-          <Button title="Sign Out" onPress={() => logout()}>
-            <Text color={colors.danger}>Sign Out</Text>
-          </Button>
+        <Button title="Instagram">
+            <Text color={colors.secondary}>Instagram</Text>
+        </Button>
+        <Button title="website">
+            <Text color={colors.secondary}>Website</Text>
+        </Button>
       </Block>
     </DrawerContentScrollView>
   );

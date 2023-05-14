@@ -18,58 +18,54 @@ const Pro = () => {
   const handleWebLink = useCallback((url) => Linking.openURL(url), []);
 
   return (
-    <Image
-      background
-      source={assets.background}
-      padding={sizes.padding}
-      style={{flex: 1}}>
-      <Block safe justify="center">
-        <Block card flex={0} padding={sizes.sm} marginBottom={sizes.sm}>
-          <Text h4 center semibold marginBottom={sizes.sm}>
-            {t('pro.title')}
-          </Text>
+      <Image
+          background
+          source={assets.grad}
+          padding={sizes.padding}
+          style={{flex: 1}}>
+            <Block safe justify="center">
+                <Block card flex={0} padding={sizes.sm} marginBottom={sizes.sm}>
+                    <Text h4 center semibold marginBottom={sizes.sm}>
+                        Coffee Crawl 2023
+                    </Text>
 
-          <Text marginBottom={sizes.padding}>{t('pro.appTemplate')}</Text>
+                    <Text marginBottom={sizes.padding}>
+                        The 2023 Tulsa Coffee Crawl was specifically designed to give you
+                        the opportunity to explore new coffee shops and cafes across town.
+                    </Text>
 
-          <Text semibold>{t('pro.components', {count: 11})}</Text>
-          <Text semibold>{t('pro.screens', {count: 18})}</Text>
-          <Text semibold>{t('pro.support')}</Text>
+                    <Text semibold>- 20+ Different Cafes</Text>
+                    <Text semibold>- 20+ Cups of Coffee</Text>
+                    <Text semibold>- 30 Days to Enjoy it All</Text>
+                    <Text semibold>- 1 Low Price</Text>
 
-          <Text marginVertical={sizes.padding}>{t('pro.saveTime')}</Text>
+                    <Text marginVertical={sizes.padding}>
+                        Once you've purchased you're ticket you'll be all set to partake in some amazing coffee.
+                        You'll receive a coupon for one free hot or iced coffee from each cafe.
+                    </Text>
+                    
+                    <Text semibold>Simply present the coupon and enjoy your fresh local coffee.</Text>
 
-          <Text>{t('pro.takeAdvantage')}</Text>
+                    
+                    <Button
+                        gradient={gradients.primary}
+                        marginVertical={sizes.s}
+                        onPress={() =>
+                            handleWebLink(
+                                'https://www.creative-tim.com/product/soft-ui-pro-react-native',
+                            )
+                        }>
+                        <Text white bold transform="uppercase">
+                            {t('pro.buyNow')}
+                        </Text>
+                    </Button>
 
-          <Block
-            row
-            flex={0}
-            justify="space-evenly"
-            marginVertical={sizes.padding}>
-            <Image
-              source={assets.ios}
-              color={colors.icon}
-              style={{height: 38, width: 82}}
-            />
-            <Image
-              source={assets.android}
-              color={colors.icon}
-              style={{height: 38, width: 140}}
-            />
-          </Block>
-
-          <Button
-            gradient={gradients.primary}
-            onPress={() =>
-              handleWebLink(
-                'https://www.creative-tim.com/product/soft-ui-pro-react-native',
-              )
-            }>
-            <Text white bold transform="uppercase">
-              {t('pro.buyNow')}
-            </Text>
-          </Button>
-        </Block>
-      </Block>
-    </Image>
+                    <Button title="Learn More" padding={sizes.s}>
+                        <Text color={colors.secondary}>I still have questions. Tell me more.</Text>
+                    </Button>
+                </Block>
+            </Block>
+        </Image>
   );
 };
 
