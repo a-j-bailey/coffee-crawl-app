@@ -1,16 +1,87 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {FlatList, ActivityIndicator, Alert} from 'react-native';
 import {useData, useTheme} from '../hooks/';
 import {Block, Button, Input, Text} from '../components/';
 import {Ionicons} from '@expo/vector-icons';
+import { supabase } from '../services/supabaseClient';
 
 const Account = () => {
     const {colors, gradients, sizes} = useTheme();
     
     const [locked, setLocked] = useState(true);
-    const [name, setName] = useState('Adam Bailey');
-    const [email, setEmail] = useState('ajbailey564@gmail.com');
+    const [loading, setLoading] = useState(true);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [uid, setUid] = useState('');
     
+    useEffect(() => {
+        getUserData();
+    }, [])
+
+
+    // Get user data.
+    async function getUserData() {
+        await supabase.auth.getUser().then((data) => {
+            setEmail(data.data.user.email)
+            setUid(data.data.user.id)
+        })
+        await supabase.from('profiles').select('*').then((data) => {
+            setName(data.data[0].full_name)
+        })
+        setLoading(false)
+    }
+    
+    async function updateAccount() {
+        setLoading(true)
+        const { data, error } = await supabase.auth.updateUser({
+            email: email,
+        })
+        if (error) {
+            console.log(error)
+            alert('Failed to save. Please try again later.')
+        }
+        console.log(data)
+        setLoading(false)
+        getUserData();
+    }
+    
+    const confirmDelete = useCallback(
+        () => {
+            Alert.alert(
+                'Are you sure you want to delete your account?',
+                'This action cannot be undone.',
+                [
+                    {
+                        text: 'Cancel',
+                        onPress: () => {},
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Delete',
+                        onPress: () => deleteUser(),
+                        style: 'default',
+                    },
+                ],
+                {
+                    cancelable: true,
+                    onDismiss: () => {},
+                },
+            );
+        },
+        [],
+    );
+    
+    async function deleteUser() {
+        // TODO: come back to this.
+//        supabase.auth.signOut().then()
+//        const { data, error } = await supabase.auth.admin.deleteUser(uid)
+//        console.log(data)
+//        console.log(error)
+    }
+    
+    function logout() {
+        supabase.auth.signOut()
+    }
 
     return (
         <Block>
@@ -22,29 +93,33 @@ const Account = () => {
                     alignItems="center"
                     paddingHorizontal={sizes.padding}>
                     <Text h4>Account</Text>
-                    <Button
-                        onPress={() => setLocked(!locked)}
-                        >
-                        {locked ?
-                            <Ionicons
-                                size={18}
-                                name="lock-closed"
-                                color={colors.gray}
-                            />
-                            : <Ionicons
-                                size={18}
-                                name="lock-open"
-                                color={colors.primary}
-                            />
-                        }
-                    </Button>
+                    {loading
+                        ? <ActivityIndicator />
+                        : <Button
+                            onPress={() => setLocked(!locked)}
+                            >
+                            {locked ?
+                                <Ionicons
+                                    size={18}
+                                    name="lock-closed"
+                                    color={colors.gray}
+                                />
+                                : <Ionicons
+                                    size={18}
+                                    name="lock-open"
+                                    color={colors.primary}
+                                />
+                            }
+                        </Button>
+                    }
                 </Block>
                 <Block padding={sizes.padding}>
-                    <Block
+                    {/*<Block
                         row
                         display={'flex'}
                         justifyContent="space-between"
-                        alignItems="center">
+                        alignItems="center"
+                        paddingVertical={sizes.s}>
                         <Text bold>Name:</Text>
                         <Block marginLeft={sizes.m}>
                             <Input
@@ -55,23 +130,22 @@ const Account = () => {
                                 disabled={locked}
                                 onChangeText={(text) => setName(text)}
                                 value={name}
-                                marginVertical={sizes.sm}
                                 color={locked ? colors.light : colors.secondary}
                             />
                         </Block>
-                    </Block>
+                    </Block>*/}
                     <Block
                         row
                         display={'flex'}
                         justifyContent="space-between"
-                        alignItems="center">
+                        alignItems="center"
+                        paddingVertical={sizes.s}>
                         <Text bold>Email:</Text>
                         <Block marginLeft={sizes.m}>
                             <Input
                                 autoCapitalize="none"
                                 textAlign="right"
                                 keyboardType="email-address"
-                                placeholder="email@example.com"
                                 success={null}
                                 danger={null}
                                 disabled={locked}
@@ -83,9 +157,13 @@ const Account = () => {
                     </Block>
                     {!locked &&
                         <Block paddingVertical={sizes.sm}>
-                            <Button gradient={gradients.success}>
-                                <Text white semibold>Save</Text>
-                            </Button>
+                            {loading
+                                ? <ActivityIndicator />
+                                : <Button gradient={gradients.success} onPress={() => updateAccount()}>
+                                    <Text white semibold>Save</Text>
+                                </Button>
+                            }
+                            
                         </Block>
                     }
                 </Block>
@@ -94,7 +172,7 @@ const Account = () => {
                 ? <Button title="Sign Out" onPress={() => logout()} paddingBottom={sizes.l}>
                     <Text color={colors.danger}>Sign Out</Text>
                 </Button>
-                : <Button title="Sign Out" onPress={() => logout()} paddingBottom={sizes.l}>
+                : <Button title="Delete" onPress={() => confirmDelete()} paddingBottom={sizes.l}>
                     <Text color={colors.danger}>Delete Account</Text>
                 </Button>
             }
