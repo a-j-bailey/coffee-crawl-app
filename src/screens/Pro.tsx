@@ -66,7 +66,7 @@ const Pro = () => {
                 </Block>
             </Block>
         </Image>
-  );
+    );
 };
 
 export default Pro;
