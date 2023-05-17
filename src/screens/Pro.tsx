@@ -56,11 +56,11 @@ const Pro = () => {
                             )
                         }>
                         <Text white bold transform="uppercase">
-                            {t('pro.buyNow')}
+                            In-App Purchase Button
                         </Text>
                     </Button>
 
-                    <Button title="Learn More" padding={sizes.s}>
+                    <Button title="Learn More" padding={sizes.s} onPress={() => handleWebLink('http://coffeecrawl.club')}>
                         <Text color={colors.secondary}>I still have questions. Tell me more.</Text>
                     </Button>
                 </Block>
