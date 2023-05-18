@@ -23,15 +23,13 @@ const Home = () => {
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        console.log('refreshing');
         getUserData();
         getCafes();
-    }, [cafes]);
+    }, []);
     
     useEffect(() => {
         getUserData();
         getCafes();
-//        setRefreshing(false);
     }, []);
 
 
