@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, ScrollView, RefreshControl} from 'react-native';
 import {useData, useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Input, Cafe, Text} from '../components/';
 import CountDown from 'react-native-countdown-fixed';
@@ -17,13 +17,22 @@ const Home = () => {
     const [locked, setLocked] = useState(true);
     const [purchased, setPurchased] = useState(false);
     const [remaining, setRemaining] = useState(0);
+    const [refreshing, setRefreshing] = useState(true);
     
     const navigation = useNavigation();
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        console.log('refreshing');
+        getUserData();
+        getCafes();
+    }, [cafes]);
     
     useEffect(() => {
         getUserData();
         getCafes();
-    }, [])
+//        setRefreshing(false);
+    }, []);
 
 
     // Get user data.
@@ -44,17 +53,24 @@ const Home = () => {
         const start = new Date(data[0].start)
         const now = new Date()
         const remains = Math.floor((start.getTime() - now.getTime())/1000)
+        setRefreshing(false);
         setRemaining(remains)
     };
 
   return (
     <Block>
-      <Block
-          scroll
+      <ScrollView
           paddingHorizontal={sizes.padding}
           marginVertical={sizes.sm}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: sizes.l}}>
+          contentContainerStyle={{paddingBottom: sizes.l}}
+          refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor={colors.secondary}
+            />
+          }>
             <Text h5 center>Welcome to the</Text>
             <Text h4 center paddingHorizontal={sizes.l}>{title}</Text>
             <Text center>
@@ -96,7 +112,7 @@ const Home = () => {
                                 <Block padding={sizes.s}>
                                     <CountDown
                                         until={remaining}
-                                        onFinish={() => expire()}
+                                        onFinish={() => {}}
                                         digitStyle={{backgroundColor: '#FFF'}}
                                         timeToShow={['D', 'H', 'M', 'S']}
                                         timeLabels={{d:'Days', h:'Hours', m:'Minutes', s:'Seconds'}}
@@ -140,7 +156,7 @@ const Home = () => {
                     gradient={gradients.divider}
                 />
           </Block>
-      </Block>
+      </ScrollView>
     </Block>
   );
 };
