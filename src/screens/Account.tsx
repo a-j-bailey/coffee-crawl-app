@@ -36,12 +36,19 @@ const Account = () => {
         const { data, error } = await supabase.auth.updateUser({
             email: email,
         })
+
         if (error) {
             console.log(error)
             alert('Failed to save. Please try again later.')
+        } else if (data.user.new_email){
+            console.log(data.user.new_email);
+            Alert.alert(
+                'Verification email sent.',
+                'Please click the link in your verification email to complete the update.'
+            )
         }
-        console.log(data)
-        setLoading(false)
+        setLoading(false);
+        setLocked(true);
         getUserData();
     }
     
