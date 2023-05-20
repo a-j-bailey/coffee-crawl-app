@@ -14,8 +14,8 @@ const Home = () => {
 
     const [cafes, setCafes] = useState([]);
     const [title, setTitle] = useState('');
-    const [locked, setLocked] = useState(true);
-    const [purchased, setPurchased] = useState(false);
+    const [locked, setLocked] = useState(false);
+    const [purchased, setPurchased] = useState(true);
     const [remaining, setRemaining] = useState(0);
     const [refreshing, setRefreshing] = useState(true);
     
@@ -43,7 +43,8 @@ const Home = () => {
 
     // Get cafe data.
     async function getCafes() {
-        let { data, error } = await supabase.from('events').select('*, cafes (*)')
+        let { data, error } = await supabase.from('events').select('*, cafes (*)').order('name', { foreignTable: 'cafes', ascending: true })
+        console.log(data);
         if (data) {
             setCafes(data[0].cafes)
         }
