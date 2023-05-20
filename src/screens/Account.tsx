@@ -4,6 +4,7 @@ import {useData, useTheme} from '../hooks/';
 import {Block, Button, Input, Text} from '../components/';
 import {Ionicons} from '@expo/vector-icons';
 import { supabase } from '../services/supabaseClient';
+import {useNavigation} from '@react-navigation/core';
 
 const Account = () => {
     const {colors, gradients, sizes} = useTheme();
@@ -14,6 +15,8 @@ const Account = () => {
     const [email, setEmail] = useState('');
     const [uid, setUid] = useState('');
     
+    const navigation = useNavigation();
+
     useEffect(() => {
         getUserData();
     }, [])
@@ -153,8 +156,6 @@ const Account = () => {
                                 autoCapitalize="none"
                                 textAlign="right"
                                 keyboardType="email-address"
-                                success={null}
-                                danger={null}
                                 disabled={locked}
                                 onChangeText={(text) => setEmail(text)}
                                 value={email}
@@ -174,12 +175,15 @@ const Account = () => {
                         </Block>
                     }
                 </Block>
+                <Button onPress={() => navigation.navigate('ResetPassword')} paddingBottom={sizes.l}>
+                    <Text>Reset Password</Text>
+                </Button>
             </Block>
             {locked
-                ? <Button title="Sign Out" onPress={() => logout()} paddingBottom={sizes.l}>
+                ? <Button onPress={() => logout()} paddingBottom={sizes.l}>
                     <Text color={colors.danger}>Sign Out</Text>
                 </Button>
-                : <Button title="Delete" onPress={() => confirmDelete()} paddingBottom={sizes.l}>
+                : <Button onPress={() => confirmDelete()} paddingBottom={sizes.l}>
                     <Text color={colors.danger}>Delete Account</Text>
                 </Button>
             }

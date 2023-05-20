@@ -7,3 +7,4 @@ export {default as Login} from './Login';
 //export {default as Settings} from './Pro';
 export {default as Pro} from './Pro';
 export {default as Account} from './Account';
+export {default as ResetPassword} from './ResetPassword';

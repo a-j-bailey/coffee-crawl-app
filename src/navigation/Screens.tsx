@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Articles, Components, Home, Profile, Register, Login, Account, Pro} from '../screens';
+import {Articles, Components, Home, Profile, Register, Login, Account, Pro, ResetPassword} from '../screens';
 import {useScreenOptions, useTranslation} from '../hooks';
 
 const Stack = createStackNavigator();
@@ -57,6 +57,12 @@ export default () => {
             <Stack.Screen
                 name="Pro"
                 component={Pro}
+                options={screenOptions.pro}
+            />
+
+            <Stack.Screen
+                name="ResetPassword"
+                component={ResetPassword}
                 options={screenOptions.pro}
             />
         </Stack.Navigator>
