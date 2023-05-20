@@ -161,7 +161,9 @@ const Profile = ({navigation, route}) => {
                     ))}
                 </Block>
             </Block>
-            <Text size={12} color={colors.gray} center marginLeft={sizes.xs}>Report An Issue</Text>
+            <Button onPress={() => Linking.openURL('https://coffeecrawl.framer.website/support')}>
+              <Text size={12} color={colors.gray} center marginLeft={sizes.xs}>Report An Issue</Text>
+            </Button>
         </Block>
       </Block>
     </Block>
