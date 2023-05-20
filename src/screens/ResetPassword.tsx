@@ -22,7 +22,6 @@ const ResetPassword = () => {
             if (error) {
                 Alert.alert(error.message)
             } else {
-                console.log(data);
                 navigation.navigate('Account');
             }
         }

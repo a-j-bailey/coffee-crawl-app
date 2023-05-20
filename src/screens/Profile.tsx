@@ -124,42 +124,46 @@ const Profile = ({navigation, route}) => {
               </Block>
             </Block>
           </Block>
-
-          {/*Activate Button*/}
-            <Coupon {...route.params.cafe}/>
-            <Block padding={sizes.s}>
-                <Text h5 bold marginLeft={sizes.xs}>Address</Text>
-                <Block
-                    backgroundColor={colors.card}
-                    borderRadius={sizes.s}
-                    padding={sizes.cardPadding}
-                    marginBottom={sizes.m}>
-                    <TouchableOpacity onPress={() => Linking.openURL('http://maps.apple.com/?address='+location_address)}>
-                        <Block
-                            row
-                            justify="space-between">
-                            <Text>{location_address}</Text>
-                            <Ionicons
-                                size={18}
-                                name="navigate"
-                                color={colors.gray}
-                              />
-                        </Block>
-                    </TouchableOpacity>
+          <Coupon {...route.params.cafe}/>
+          <Block padding={sizes.s}>
+                {location_address && <Block>
+                  <Text h5 bold marginLeft={sizes.xs}>Address</Text>
+                  <Block
+                      backgroundColor={colors.card}
+                      borderRadius={sizes.s}
+                      padding={sizes.cardPadding}
+                      marginBottom={sizes.m}>
+                      <TouchableOpacity onPress={() => Linking.openURL('http://maps.apple.com/?address='+location_address)}>
+                          <Block
+                              row
+                              justify="space-between">
+                              <Text>{location_address}</Text>
+                              <Ionicons
+                                  size={18}
+                                  name="navigate"
+                                  color={colors.gray}
+                                />
+                          </Block>
+                      </TouchableOpacity>
+                  </Block>
                 </Block>
-                <Text h5 bold marginLeft={sizes.xs}>Hours</Text>
-                <Block
-                    backgroundColor={colors.card}
-                    borderRadius={sizes.s}
-                    padding={sizes.cardPadding}
-                    marginBottom={sizes.m}>
-                    {(hours_of_operation) && Object.keys(hours_of_operation).map((k, i) => (
-                        <Block row justify="space-between" key={i}>
-                            <Text>{hours_of_operation[k].days}</Text>
-                            <Text align="right">{hours_of_operation[k].hours}</Text>
-                        </Block>
-                    ))}
+                }
+                { (hours_of_operation.length > 0) && <Block>
+                  <Text h5 bold marginLeft={sizes.xs}>Hours</Text>
+                  <Block
+                      backgroundColor={colors.card}
+                      borderRadius={sizes.s}
+                      padding={sizes.cardPadding}
+                      marginBottom={sizes.m}>
+                      {(hours_of_operation) && Object.keys(hours_of_operation).map((k, i) => (
+                          <Block row justify="space-between" key={i}>
+                              <Text>{hours_of_operation[k].days}</Text>
+                              <Text align="right">{hours_of_operation[k].hours}</Text>
+                          </Block>
+                      ))}
+                  </Block>
                 </Block>
+                }
             </Block>
             <Button onPress={() => Linking.openURL('https://coffeecrawl.framer.website/support')}>
               <Text size={12} color={colors.gray} center marginLeft={sizes.xs}>Report An Issue</Text>

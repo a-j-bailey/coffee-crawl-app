@@ -48,17 +48,14 @@ const Login = () => {
     }
 
     async function resetPassword() {
-        console.log(email);
         const { data, error } = await supabase.auth.resetPasswordForEmail(email);
 
         if (error) {
-            console.log(error);
             Alert.alert(
                 'Reset Failed',
                 'Please contact us for help.'
             )
         } else if (data) {
-            console.log(data);
             Alert.alert(
                 'A password recovery link has been sent to the email on file.'
             )
@@ -70,8 +67,6 @@ const Login = () => {
         setLoading(true);
         let token = otp;
         const { data, error } = await supabase.auth.verifyOtp({ email, token, type: 'email'})
-        console.log(data);
-        console.log(error);
         
         if (error) Alert.alert(error.message);
         setLoading(false);

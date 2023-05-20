@@ -41,10 +41,8 @@ const Account = () => {
         })
 
         if (error) {
-            console.log(error)
             alert('Failed to save. Please try again later.')
         } else if (data.user.new_email){
-            console.log(data.user.new_email);
             Alert.alert(
                 'Verification email sent.',
                 'Please click the link in your verification email to complete the update.'
@@ -85,8 +83,6 @@ const Account = () => {
         // TODO: come back to this.
 //        supabase.auth.signOut().then()
 //        const { data, error } = await supabase.auth.admin.deleteUser(uid)
-//        console.log(data)
-//        console.log(error)
     }
     
     function logout() {

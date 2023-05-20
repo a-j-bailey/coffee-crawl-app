@@ -44,7 +44,6 @@ const Home = () => {
     // Get cafe data.
     async function getCafes() {
         let { data, error } = await supabase.from('events').select('*, cafes (*)').order('name', { foreignTable: 'cafes', ascending: true })
-        console.log(data);
         if (data) {
             setCafes(data[0].cafes)
         }
