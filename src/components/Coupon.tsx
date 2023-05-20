@@ -12,7 +12,7 @@ import Button from './Button';
 import Image from './Image';
 import Text from './Text';
 
-const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app}) => {
+const Coupon = ({id, image, title, type, linkLabel, location, logo, follow_up_link, follow_up_text}) => {
     const {assets, colors, gradients, sizes} = useTheme();
     const [status, setStatus] = useState('Loading');
     const [userId, setUserId] = useState(null);
@@ -198,11 +198,11 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, roasters_app
                     <Text dark center>
                         Don't forget to leave a review!
                     </Text>
-                    <Button flex={1} gradient={gradients.dark} margin={sizes.s} onPress={() => Linking.openURL(roasters_app)}>
+                    { (follow_up_link && follow_up_text) && <Button flex={1} gradient={gradients.dark} margin={sizes.s} onPress={() => Linking.openURL(follow_up_link)}>
                         <Text white bold marginHorizontal={sizes.s}>
-                            Leave a Review
+                            {follow_up_text}
                         </Text>
-                    </Button>
+                    </Button> }
                 </Block>
             </Block>
         );

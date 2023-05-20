@@ -105,10 +105,10 @@ const DrawerContent = (
           marginVertical={sizes.sm}
           gradient={gradients.menu}
         />
-        <Button title="Instagram">
+        <Button onPress={() => handleWebLink('https://www.instagram.com/coffeecrawl.club/')}>
             <Text color={colors.secondary}>Instagram</Text>
         </Button>
-        <Button title="website">
+        <Button onPress={() => handleWebLink('https://coffeecrawl.framer.website/')}>
             <Text color={colors.secondary}>Website</Text>
         </Button>
       </Block>
