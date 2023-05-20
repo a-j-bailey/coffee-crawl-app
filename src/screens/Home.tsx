@@ -14,8 +14,9 @@ const Home = () => {
 
     const [cafes, setCafes] = useState([]);
     const [title, setTitle] = useState('');
-    const [locked, setLocked] = useState(false);
-    const [purchased, setPurchased] = useState(true);
+    const [description, setDescription] = useState('');
+    const [locked, setLocked] = useState(true);
+    const [purchased, setPurchased] = useState(false);
     const [remaining, setRemaining] = useState(0);
     const [refreshing, setRefreshing] = useState(true);
     
@@ -48,6 +49,7 @@ const Home = () => {
             setCafes(data[0].cafes)
         }
         setTitle(data[0].name)
+        setDescription(data[0].description)
         const start = new Date(data[0].start)
         const now = new Date()
         const remains = Math.floor((start.getTime() - now.getTime())/1000)
@@ -72,7 +74,7 @@ const Home = () => {
             <Text h5 center>Welcome to the</Text>
             <Text h4 center paddingHorizontal={sizes.l}>{title}</Text>
             <Text center>
-                Your ticket to a whole month of coffee from the greatest coffee shops in Tulsa.
+                {description}
             </Text>
             <Block
                 flex={0}
