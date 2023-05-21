@@ -7,9 +7,6 @@ import {useNavigation} from '@react-navigation/core';
 import { supabase } from '../services/supabaseClient';
 
 const Home = () => {
-    const {t} = useTranslation();
-    const [tab, setTab] = useState<number>(0);
-    const {following, trending} = useData();
     const {assets, colors, fonts, gradients, sizes} = useTheme();
 
     const [cafes, setCafes] = useState([]);
@@ -19,7 +16,7 @@ const Home = () => {
     const [purchased, setPurchased] = useState(false);
     const [remaining, setRemaining] = useState(0);
     const [refreshing, setRefreshing] = useState(true);
-    
+
     const navigation = useNavigation();
 
     const onRefresh = useCallback(() => {
@@ -36,25 +33,51 @@ const Home = () => {
 
     // Get user data.
     async function getUserData() {
-        let { data, error } = await supabase.from('profiles').select('*')
-        if (data && data[0].purchased) {
+        // Get user data and receipts.
+        // If receipt exists that matches event_id and payment_status - set unlocked.
+        let { data, error } = await supabase
+            .from('profiles')
+            .select('*, user_receipts(*)')
+            .order('created_at', { foreignTable: 'user_receipts', ascending: false })
+            .eq('user_receipts.event_id', 1)
+            .in('user_receipts.payment_status', ['pending', 'succeeded']);
+
+        if (data && data[0].user_receipts.length > 0) {
             setPurchased(true)
+        } else {
+            setPurchased(false)
         }
     }
 
     // Get cafe data.
     async function getCafes() {
-        let { data, error } = await supabase.from('events').select('*, cafes (*)').order('name', { foreignTable: 'cafes', ascending: true })
+        let { data, error } = await supabase
+            .from('events')
+            .select('*, cafes (*)')
+            .order('name', { foreignTable: 'cafes', ascending: true })
+
         if (data) {
             setCafes(data[0].cafes)
         }
+
+        // Set event title in page header.
         setTitle(data[0].name)
+        // Set event description in page header.
         setDescription(data[0].description)
+
+        // Calculate time till event starts.
         const start = new Date(data[0].start)
         const now = new Date()
         const remains = Math.floor((start.getTime() - now.getTime())/1000)
+
+        if (remains > 0) {
+            setRemaining(remains)
+            setLocked(true)
+        } else {
+            setLocked(false)
+        }
+
         setRefreshing(false);
-        setRemaining(remains)
     };
 
   return (
@@ -83,7 +106,7 @@ const Home = () => {
                 marginVertical={sizes.sm}
                 gradient={gradients.menu}
             />
-            {!purchased &&
+            {!purchased&&
                 <TouchableOpacity onPress={() => navigation.navigate('Pro')}>
                     <Block card white padding={0} marginVertical={sizes.sm}>
                         <Image
@@ -100,7 +123,7 @@ const Home = () => {
                     </Block>
                 </TouchableOpacity>              
             }
-            {(!locked || purchased) && 
+            {(locked && purchased) && 
                 <Block>
                     <Image
                       background
