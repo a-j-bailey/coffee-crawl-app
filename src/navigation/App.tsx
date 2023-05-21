@@ -6,7 +6,7 @@ import AppLoading from 'expo-app-loading';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import AuthProvider from './Auth';
 import {useData, ThemeProvider, TranslationProvider} from '../hooks';
-import Purchases from 'react-native-purchases';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 export default () => {
   const {isDark, theme, setTheme} = useData();
@@ -51,7 +51,13 @@ export default () => {
     <TranslationProvider>
       <ThemeProvider theme={theme} setTheme={setTheme}>
         <NavigationContainer theme={navigationTheme}>
-          <AuthProvider />
+          <StripeProvider
+            publishableKey="pk_test_51NA2BtDcpCAUl72SgmEbdCpFVpOjyeSLV6MeaItvdTTr0fKtlKjbZhdDiOrSyOFW1jI1i6Jj7zO4UMUyKJOj0vwc00UcUptHBX"
+            // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+            // merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+            >
+            <AuthProvider />
+          </StripeProvider>
         </NavigationContainer>
       </ThemeProvider>
     </TranslationProvider>
