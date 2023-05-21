@@ -61,21 +61,7 @@ const Pro = () => {
             // setUrlSchemeOnAndroid: true,
         });
 
-        // const address: PaymentSheet.Address = {
-        //     city: "San Francisco",
-        //     country: "AT",
-        //     line1: "510 Townsend St.",
-        //     line2: "123 Street",
-        //     postalCode: "94102",
-        //     state: "California",
-        // };
-
-        // const billingDetails: PaymentSheet.BillingDetails = {
-        //     name: "Jane Doe",
-        //     email: "foo@bar.com",
-        //     phone: "555-555-555",
-        //     address: address,
-        // };
+        const { data } = await supabase.auth.getSession();
 
         const { error } = await initPaymentSheet({
             customerId: customer,
@@ -86,7 +72,17 @@ const Pro = () => {
             style: "automatic",
             returnURL: "coffee-crawl://stripe-redirect",
             allowsDelayedPaymentMethods: true,
+            billingDetailsCollectionConfiguration: {
+                name: PaymentSheet.CollectionMode.ALWAYS,
+                email: PaymentSheet.CollectionMode.ALWAYS,
+                address: PaymentSheet.AddressCollectionMode.NEVER,
+                attachDefaultsToPaymentMethod: true
+            },
+            defaultBillingDetails: {
+                email: data.session?.user.email,
+            }
         });
+
         if (!error) {
             setPaymentSheetEnabled(true);
         } else if (error.code === PaymentSheetError.Failed) {
@@ -95,10 +91,7 @@ const Pro = () => {
                 error.message
             );
         } else if (error.code === PaymentSheetError.Canceled) {
-            Alert.alert(
-                `PaymentSheet init was canceled with code: ${error.code}`,
-                error.message
-            );
+            console.log('Payment sheet was canceled')
         }
         setLoading(false);
     };
@@ -108,7 +101,7 @@ const Pro = () => {
         const { error } = await presentPaymentSheet();
 
         if (error) {
-            Alert.alert(`Error code: ${error.code}`, error.message);
+            console.log(`Error code: ${error.code}`, error.message)
         } else {
             Alert.alert('Success', 'Your order is confirmed!');
         }
