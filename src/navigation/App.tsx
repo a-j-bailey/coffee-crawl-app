@@ -4,9 +4,9 @@ import {Platform, StatusBar, View, Text} from 'react-native';
 import {useFonts} from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-
 import AuthProvider from './Auth';
 import {useData, ThemeProvider, TranslationProvider} from '../hooks';
+import Purchases from 'react-native-purchases';
 
 export default () => {
   const {isDark, theme, setTheme} = useData();

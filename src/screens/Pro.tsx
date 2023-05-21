@@ -1,19 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
 import {Linking, StatusBar} from 'react-native';
-
 import {useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Image, Text} from '../components/';
 
 const Pro = () => {
   const {t} = useTranslation();
   const {assets, colors, gradients, sizes} = useTheme();
-
-  useEffect(() => {
-    StatusBar.setBarStyle('light-content');
-    return () => {
-      StatusBar.setBarStyle('dark-content');
-    };
-  }, []);
 
   const handleWebLink = useCallback((url) => Linking.openURL(url), []);
 

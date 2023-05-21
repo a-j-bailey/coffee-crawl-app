@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import AppLoading from 'expo-app-loading';
 import Menu from './Menu';
 import Login from '../screens/Login';
 import { supabase } from '../services/supabaseClient';
 import { Session } from '@supabase/supabase-js'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Purchases from 'react-native-purchases'
 
 export default () => {
     const authenticated = false;
@@ -18,6 +18,7 @@ export default () => {
                 await AsyncStorage.setItem('@user', jsonValue)
             } catch (e) {
                 console.log('failed to store user');
+                console.log(e);
             }
         } else if (event == 'SIGNED_OUT') {
             try {
