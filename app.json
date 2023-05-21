@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "Coffee Crawl Tulsa",
+    "name": "Coffee Crawl",
     "slug": "coffee-crawl-tulsa",
+    "scheme": "coffee-crawl",
     "description": "Enjoy some great coffee!",
     "primaryColor": "#CB0C9F",
     "version": "1.0.0",

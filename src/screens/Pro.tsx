@@ -28,8 +28,6 @@ const Pro = () => {
             "payment-sheet"
         );
 
-        console.log(data, error);
-
         if (!data || error) {
             Alert.alert(`Error: ${error?.message ?? "no data"}`);
             return {};
@@ -86,7 +84,7 @@ const Pro = () => {
             customFlow: false,
             merchantDisplayName: "coffeecrawl.club",
             style: "automatic",
-            returnURL: "stripe-example://stripe-redirect",
+            returnURL: "coffee-crawl://stripe-redirect",
             allowsDelayedPaymentMethods: true,
         });
         if (!error) {
