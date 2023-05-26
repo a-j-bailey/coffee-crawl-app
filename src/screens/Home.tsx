@@ -19,22 +19,17 @@ const Home = () => {
 
     const navigation = useNavigation();
 
-    const onRefresh = useCallback(() => {
+    const onRefresh = useCallback(async () => {
         setRefreshing(true);
-        getUserData();
-        getCafes();
-    }, []);
+        getEvent();
+        setRefreshing(false);
+    }, [refreshing]);
     
     useEffect(() => {
-        getUserData();
-        getCafes();
+        getEvent();
     }, []);
 
-
-    // Get user data.
-    async function getUserData() {
-        // Get user data and receipts.
-        // If receipt exists that matches event_id and payment_status - set unlocked.
+    async function getPurchased() {
         let { data, error } = await supabase
             .from('profiles')
             .select('*, user_receipts(*)')
@@ -44,13 +39,17 @@ const Home = () => {
 
         if (data && data[0].user_receipts.length > 0) {
             setPurchased(true);
+            return true;
         } else {
             setPurchased(false);
+            return false;
         }
     }
 
     // Get cafe data.
-    async function getCafes() {
+    async function getEvent() {
+        let purchased = await getPurchased();
+
         let { data, error } = await supabase
             .from('events')
             .select('*, cafes (*)')
@@ -70,8 +69,9 @@ const Home = () => {
         const now = new Date()
         const remains = Math.floor((start.getTime() - now.getTime())/1000)
 
-        if (remains > 0) {
-            setRemaining(remains)
+        setRemaining(remains)
+
+        if (remains > 0 || !purchased) {
             setLocked(true)
         } else {
             setLocked(false)
@@ -135,7 +135,7 @@ const Home = () => {
                                 <Block padding={sizes.s}>
                                     <CountDown
                                         until={remaining}
-                                        onFinish={onRefresh}
+                                        onFinish={() => {onRefresh()}}
                                         digitStyle={{backgroundColor: '#FFF'}}
                                         timeToShow={['D', 'H', 'M', 'S']}
                                         timeLabels={{d:'Days', h:'Hours', m:'Minutes', s:'Seconds'}}

@@ -25,8 +25,8 @@ const Account = () => {
     // Get user data.
     async function getUserData() {
         await supabase.auth.getUser().then((data) => {
-            setEmail(data.data.user.email)
-            setUid(data.data.user.id)
+            setEmail(data.data.user.email);
+            setUid(data.data.user.id);
         })
         await supabase.from('profiles').select('*').then((data) => {
             setName(data.data[0].full_name)
@@ -57,7 +57,7 @@ const Account = () => {
         () => {
             Alert.alert(
                 'Are you sure you want to delete your account?',
-                'This action cannot be undone.',
+                'All your data will be deleted permanently. This action cannot be undone.',
                 [
                     {
                         text: 'Cancel',
@@ -80,9 +80,18 @@ const Account = () => {
     );
     
     async function deleteUser() {
-        // TODO: come back to this.
-//        supabase.auth.signOut().then()
-//        const { data, error } = await supabase.auth.admin.deleteUser(uid)
+        setLoading(true)
+        const { data, error } = await supabase.functions.invoke<FunctionResponse>("delete-user");
+
+        console.log(data);
+        console.log(error);
+
+        await supabase.auth.signOut().then(() => {
+            Alert.alert(
+                'Successfully deleted account.',
+                "I'm really sorry to see you go."
+            )
+        });
     }
     
     function logout() {

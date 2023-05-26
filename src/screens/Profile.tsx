@@ -8,21 +8,21 @@ import {useData, useTheme, useTranslation} from '../hooks/';
 const isAndroid = Platform.OS === 'android';
 
 const Profile = ({navigation, route}) => {
-    const {
-        id,
-        image,
-        name,
-        type,
-        linkLabel,
-        location_short,
-        location_address,
-        logo,
-        website,
-        coupon_value,
-        social_links,
-        hours_of_operation
-    } = route.params.cafe;
-    
+  const {
+      id,
+      image,
+      name,
+      type,
+      linkLabel,
+      location_short,
+      location_address,
+      logo,
+      website,
+      coupon_value,
+      social_links,
+      hours_of_operation
+  } = route.params.cafe;
+  
   const {assets, colors, gradients, sizes} = useTheme();
 
   return (
