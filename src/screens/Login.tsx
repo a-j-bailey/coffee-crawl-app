@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Alert} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {Alert, Linking} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {useTheme, useTranslation} from '../hooks/';
 import {Block, Button, Input, Image, Text, Checkbox} from '../components/';
@@ -17,6 +17,7 @@ const Login = () => {
     const [name, setName] = useState('');
     const [otp, setOTP] = useState('');
     const [loading, setLoading] = useState(false);
+    const [agreeTerms, setAgreeTerms] = useState(false);
     
     const [view, setView] = useState('SignUp');
     
@@ -33,6 +34,12 @@ const Login = () => {
     
     async function signUpWithEmail() {
         setLoading(true);
+
+        if (!agreeTerms) {
+            Alert.alert('You must agree to the terms and conditions.');
+            return;
+        }
+
         const { data, error } = await supabase.auth.signUp({
             email: email,
             password: password,
@@ -71,6 +78,8 @@ const Login = () => {
         if (error) Alert.alert(error.message);
         setLoading(false);
     }
+
+    const handleWebLink = useCallback((url) => Linking.openURL(url), []);
     
     const imageLink = 'https://images.unsplash.com/photo-1525480122447-64809d765ec4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGNvZmZlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'
     
@@ -315,18 +324,18 @@ const Login = () => {
                                 danger={null}
                                 color={colors.dark}
                             />
-                            <Block row flex={0} align="center" marginTop={sizes.sm}>
+                            <Block row flex={0} align="center" marginVertical={sizes.m}>
                                 <Checkbox
                                     marginRight={sizes.sm}
-                                    checked={false}
-                                    onPress={(value) => handleChange({agreed: value})}
+                                    checked={agreeTerms}
+                                    onPress={() => setAgreeTerms(!agreeTerms)}
                                 />
                                     <Text paddingRight={sizes.s}>
                                         {t('common.agree')}
                                         <Text
                                             semibold
                                             onPress={() => {
-                                              Linking.openURL('https://www.creative-tim.com/terms');
+                                                handleWebLink('https://coffeecrawl.framer.website/privacy');
                                             }}>
                                             {t('common.terms')}
                                           </Text>
@@ -335,8 +344,6 @@ const Login = () => {
                             <Button
                                 gradient={gradients.primary}
                                 shadow={!isAndroid}
-                                marginTop={sizes.m}
-                                marginBottom={sizes.s}
                                 onPress={() => signUpWithEmail()}>
                                 <Text bold white transform="uppercase">
                                     Sign Up
