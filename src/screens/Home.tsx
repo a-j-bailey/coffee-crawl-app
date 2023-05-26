@@ -56,6 +56,7 @@ const Home = () => {
             .order('name', { foreignTable: 'cafes', ascending: true });
 
         if (data) {
+            console.log(data[0].cafes);
             setCafes(data[0].cafes);
         }
 
@@ -150,7 +151,7 @@ const Home = () => {
             }
             <Block row wrap="wrap" justify="space-between" marginVertical={sizes.sm}>
               {cafes?.map((cafe) => (
-                <Cafe cafe={cafe} locked={locked} purchased={purchased} key={`card-${cafe?.id}`} />
+                <Cafe cafe={cafe} locked={locked} purchased={purchased} key={`card-${JSON.stringify(cafe)}`} />
               ))}
             </Block>
             <Block
