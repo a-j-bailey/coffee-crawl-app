@@ -43,9 +43,9 @@ const Home = () => {
             .in('user_receipts.payment_status', ['pending', 'succeeded']);
 
         if (data && data[0].user_receipts.length > 0) {
-            setPurchased(true)
+            setPurchased(true);
         } else {
-            setPurchased(false)
+            setPurchased(false);
         }
     }
 
@@ -54,10 +54,10 @@ const Home = () => {
         let { data, error } = await supabase
             .from('events')
             .select('*, cafes (*)')
-            .order('name', { foreignTable: 'cafes', ascending: true })
+            .order('name', { foreignTable: 'cafes', ascending: true });
 
         if (data) {
-            setCafes(data[0].cafes)
+            setCafes(data[0].cafes);
         }
 
         // Set event title in page header.
@@ -135,7 +135,7 @@ const Home = () => {
                                 <Block padding={sizes.s}>
                                     <CountDown
                                         until={remaining}
-                                        onFinish={() => {}}
+                                        onFinish={onRefresh}
                                         digitStyle={{backgroundColor: '#FFF'}}
                                         timeToShow={['D', 'H', 'M', 'S']}
                                         timeLabels={{d:'Days', h:'Hours', m:'Minutes', s:'Seconds'}}
