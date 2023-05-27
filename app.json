@@ -5,7 +5,7 @@
     "scheme": "coffee-crawl",
     "description": "Enjoy some great coffee!",
     "primaryColor": "#CB0C9F",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
