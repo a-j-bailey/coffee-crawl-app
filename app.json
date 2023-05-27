@@ -5,7 +5,7 @@
     "scheme": "coffee-crawl",
     "description": "Enjoy some great coffee!",
     "primaryColor": "#CB0C9F",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,7 +21,11 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.magicmirrorcreative.coffee-crawl"
+      "bundleIdentifier": "com.magicmirrorcreative.coffee-crawl",
+      "buildNumber": "0.1.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Some of the code we use has the ability to utilize your device camera, however, we're not currently utilizing that and have no plan to access it with this version of the app."
+      },
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +38,11 @@
     },
     "plugins": [
       "expo-localization"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f496207d-8f07-4e0f-b5ab-4c8f523f19db"
+      }
+    }
   }
 }
