@@ -83,9 +83,6 @@ const Account = () => {
         setLoading(true)
         const { data, error } = await supabase.functions.invoke<FunctionResponse>("delete-user");
 
-        // console.log(data);
-        // console.log(error);
-
         await supabase.auth.signOut().then(() => {
             Alert.alert(
                 'Successfully deleted account.',
