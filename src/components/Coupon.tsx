@@ -12,7 +12,19 @@ import Button from './Button';
 import Image from './Image';
 import Text from './Text';
 
-const Coupon = ({id, image, title, type, linkLabel, location, logo, follow_up_link, follow_up_text}) => {
+const Coupon = (
+    {
+        id,
+        image,
+        title,
+        type,
+        linkLabel,
+        location,
+        logo,
+        follow_up_link,
+        follow_up_text,
+        coupon_value
+    }) => {
     const {assets, colors, gradients, sizes} = useTheme();
     const [status, setStatus] = useState('Loading');
     const [userId, setUserId] = useState(null);
@@ -153,7 +165,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, follow_up_li
         );
     } else if (status == 'Active') {
         return (
-            <Block padding={sizes.l}>
+            <Block padding={sizes.padding}>
                 <Block
                     card
                     padding={0}
@@ -175,8 +187,7 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, follow_up_li
                                     size={20}
                                 />
                             </Block>
-                            <Text white h6>Tulsa Coffee Crawl</Text>
-                            <Text white p center size={sizes.s}>1 Free Small Iced or Hot Coffee</Text>
+                            <Text white p center size={sizes.s}>{coupon_value}</Text>
                         </Block>
                     </Image>
                 </Block>
@@ -194,9 +205,6 @@ const Coupon = ({id, image, title, type, linkLabel, location, logo, follow_up_li
                 <Block marginTop={sizes.s}>
                     <Text dark bold center>
                         I hope you enjoyed your coffee!
-                    </Text>
-                    <Text dark center>
-                        Don't forget to leave a review!
                     </Text>
                     { (follow_up_link && follow_up_text) && <Button flex={1} gradient={gradients.dark} margin={sizes.s} onPress={() => Linking.openURL(follow_up_link)}>
                         <Text white bold marginHorizontal={sizes.s}>
