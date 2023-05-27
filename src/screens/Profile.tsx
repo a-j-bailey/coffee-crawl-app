@@ -22,7 +22,7 @@ const Profile = ({navigation, route}) => {
       social_links,
       hours_of_operation
   } = route.params.cafe;
-  
+
   const {assets, colors, gradients, sizes} = useTheme();
 
   return (
@@ -148,7 +148,7 @@ const Profile = ({navigation, route}) => {
                   </Block>
                 </Block>
                 }
-                { (hours_of_operation.length > 0) && <Block>
+                { (Object.keys(hours_of_operation).length > 0) && <Block>
                   <Text h5 bold marginLeft={sizes.xs}>Hours</Text>
                   <Block
                       backgroundColor={colors.card}
