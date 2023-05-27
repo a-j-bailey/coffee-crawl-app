@@ -10,6 +10,7 @@ const Home = () => {
     const {assets, colors, fonts, gradients, sizes} = useTheme();
 
     const [cafes, setCafes] = useState([]);
+    const [counterId, setCounterId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [locked, setLocked] = useState(true);
@@ -46,6 +47,18 @@ const Home = () => {
         }
     }
 
+    function calcRemainingTime(event) {
+        // Calculate time till event starts.
+        const start = new Date(event.start)
+        const now = new Date()
+        const remains = Math.floor((start.getTime() - now.getTime())/1000)
+
+        setRemaining(remains);
+        setCounterId(remains.toString());
+
+        return remains;
+    }
+
     // Get cafe data.
     async function getEvent() {
         let purchased = await getPurchased();
@@ -56,21 +69,15 @@ const Home = () => {
             .order('name', { foreignTable: 'cafes', ascending: true });
 
         if (data) {
-            console.log(data[0].cafes);
             setCafes(data[0].cafes);
         }
+
+        let remains = calcRemainingTime(data[0]);
 
         // Set event title in page header.
         setTitle(data[0].name)
         // Set event description in page header.
         setDescription(data[0].description)
-
-        // Calculate time till event starts.
-        const start = new Date(data[0].start)
-        const now = new Date()
-        const remains = Math.floor((start.getTime() - now.getTime())/1000)
-
-        setRemaining(remains)
 
         if (remains > 0 || !purchased) {
             setLocked(true)
@@ -80,6 +87,8 @@ const Home = () => {
 
         setRefreshing(false);
     };
+
+    console.log('Remains', remaining)
 
   return (
     <Block>
@@ -135,6 +144,7 @@ const Home = () => {
                                 <Text h4 white center>You're In!</Text>
                                 <Block padding={sizes.s}>
                                     <CountDown
+                                        id={counterId}
                                         until={remaining}
                                         onFinish={() => {onRefresh()}}
                                         digitStyle={{backgroundColor: '#FFF'}}
