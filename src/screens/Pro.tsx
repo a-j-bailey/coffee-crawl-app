@@ -9,6 +9,7 @@ import {
     PaymentSheetError,
   } from "@stripe/stripe-react-native";
 import { supabase } from '../services/supabaseClient';
+import {useNavigation} from '@react-navigation/core';
 
 const Pro = () => {
     const { t } = useTranslation();
@@ -16,7 +17,8 @@ const Pro = () => {
 
     const handleWebLink = useCallback((url) => Linking.openURL(url), []);
 
-    // ----------------------------------------------------------------------
+    const navigation = useNavigation();
+
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [loading, setLoading] = useState(true);
     const [clientSecret, setClientSecret] = useState<string>();
@@ -104,6 +106,7 @@ const Pro = () => {
             console.log(`Error code: ${error.code}`, error.message)
         } else {
             Alert.alert('Success', 'Your order is confirmed!');
+            navigation.navigate('Home');
         }
     };
 
