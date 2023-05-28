@@ -22,7 +22,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.magicmirrorcreative.coffee-crawl",
-      "buildNumber": "0.1.0",
+      "buildNumber": "0.1.1",
       "infoPlist": {
         "NSCameraUsageDescription": "Some of the code we use has the ability to utilize your device camera, however, we're not currently utilizing that and have no plan to access it with this version of the app."
       },
