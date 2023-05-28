@@ -1,37 +1,39 @@
-import React, {useState, useCallback} from 'react';
-import {Alert, Linking} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
-import {useTheme, useTranslation} from '../hooks/';
-import {Block, Button, Input, Image, Text, Checkbox} from '../components/';
+import React, { useState, useCallback } from 'react';
+import { Alert, Linking, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
+import { useTheme, useTranslation } from '../hooks/';
+import { Block, Button, Input, Image, Text, Checkbox } from '../components/';
 import { supabase } from '../services/supabaseClient';
 
 const isAndroid = Platform.OS === 'android';
 
 const Login = () => {
-    const {t} = useTranslation();
+    const platform = Platform.OS;
+
+    const { t } = useTranslation();
     const navigation = useNavigation();
-    const {assets, colors, gradients, sizes} = useTheme();
-    
+    const { assets, colors, gradients, sizes } = useTheme();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [otp, setOTP] = useState('');
     const [loading, setLoading] = useState(false);
     const [agreeTerms, setAgreeTerms] = useState(false);
-    
+
     const [view, setView] = useState('SignUp');
-    
+
     async function signInWithEmail() {
         setLoading(true);
         const { error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password
         })
-        
+
         if (error) Alert.alert(error.message);
         setLoading(false);
     }
-    
+
     async function signUpWithEmail() {
         setLoading(true);
 
@@ -44,12 +46,14 @@ const Login = () => {
             email: email,
             password: password,
             options: {
-              data: {
-                full_name: name,
-              }
+                data: {
+                    full_name: name,
+                    username: email,
+                    platform: platform,
+                }
             }
         });
-        
+
         if (error) Alert.alert(error.message);
         setLoading(false);
     }
@@ -73,23 +77,23 @@ const Login = () => {
     async function loginWithOTP() {
         setLoading(true);
         let token = otp;
-        const { data, error } = await supabase.auth.verifyOtp({ email, token, type: 'email'})
-        
+        const { data, error } = await supabase.auth.verifyOtp({ email, token, type: 'email' })
+
         if (error) Alert.alert(error.message);
         setLoading(false);
     }
 
     const handleWebLink = useCallback((url) => Linking.openURL(url), []);
-    
+
     const imageLink = 'https://images.unsplash.com/photo-1525480122447-64809d765ec4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGNvZmZlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'
-    
+
     if (view == 'Login') {
         return (
             <Image
                 background
-                source={{uri: imageLink}}
+                source={{ uri: imageLink }}
                 paddingHorizontal={sizes.padding}
-                style={{flex: 1}}>
+                style={{ flex: 1 }}>
                 <Block safe>
                     <Block
                         blur
@@ -150,7 +154,7 @@ const Login = () => {
                                 </Text>
                             </Button>
                         </Block>
-                        
+
                     </Block>
                     <Button
                         onPress={() => setView('Forgot Password')}>
@@ -159,15 +163,15 @@ const Login = () => {
                         </Text>
                     </Button>
                 </Block>
-        </Image>
+            </Image>
         )
     } else if (view == 'Forgot Password') {
         return (
             <Image
                 background
-                source={{uri: imageLink}}
+                source={{ uri: imageLink }}
                 paddingHorizontal={sizes.padding}
-                style={{flex: 1}}>
+                style={{ flex: 1 }}>
                 <Block safe>
                     <Block
                         blur
@@ -220,9 +224,9 @@ const Login = () => {
         return (
             <Image
                 background
-                source={{uri: imageLink}}
+                source={{ uri: imageLink }}
                 paddingHorizontal={sizes.padding}
-                style={{flex: 1}}>
+                style={{ flex: 1 }}>
                 <Block safe>
                     <Block
                         blur
@@ -271,9 +275,9 @@ const Login = () => {
         return (
             <Image
                 background
-                source={{uri: imageLink}}
+                source={{ uri: imageLink }}
                 paddingHorizontal={sizes.padding}
-                style={{flex: 1}}>
+                style={{ flex: 1 }}>
                 <Block safe>
                     <Block
                         blur
@@ -330,17 +334,17 @@ const Login = () => {
                                     checked={agreeTerms}
                                     onPress={() => setAgreeTerms(!agreeTerms)}
                                 />
-                                    <Text paddingRight={sizes.s}>
-                                        {t('common.agree')}
-                                        <Text
-                                            semibold
-                                            onPress={() => {
-                                                handleWebLink('https://coffeecrawl.framer.website/privacy');
-                                            }}>
-                                            {t('common.terms')}
-                                          </Text>
+                                <Text paddingRight={sizes.s}>
+                                    {t('common.agree')}
+                                    <Text
+                                        semibold
+                                        onPress={() => {
+                                            handleWebLink('https://coffeecrawl.framer.website/privacy');
+                                        }}>
+                                        {t('common.terms')}
                                     </Text>
-                                </Block>
+                                </Text>
+                            </Block>
                             <Button
                                 gradient={gradients.primary}
                                 shadow={!isAndroid}
