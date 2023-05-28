@@ -18,7 +18,6 @@ export default function App() {
 					console.log('Stripe URL handled');
 				} else {
 					// This was NOT a Stripe URL – handle as you normally would
-					console.log('Not a Stripe URL');
 				}
 			}
 		},
