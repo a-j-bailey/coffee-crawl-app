@@ -52,9 +52,9 @@ export default () => {
       <ThemeProvider theme={theme} setTheme={setTheme}>
         <NavigationContainer theme={navigationTheme}>
           <StripeProvider
-            publishableKey="pk_test_51NA2BtDcpCAUl72SgmEbdCpFVpOjyeSLV6MeaItvdTTr0fKtlKjbZhdDiOrSyOFW1jI1i6Jj7zO4UMUyKJOj0vwc00UcUptHBX"
-            // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
-            // merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+              publishableKey="pk_test_51NA2BtDcpCAUl72SgmEbdCpFVpOjyeSLV6MeaItvdTTr0fKtlKjbZhdDiOrSyOFW1jI1i6Jj7zO4UMUyKJOj0vwc00UcUptHBX"
+              urlScheme="coffee-crawl" // required for 3D Secure and bank redirects
+              merchantIdentifier="merchant.com.coffee-crawl" // required for Apple Pay
             >
             <AuthProvider />
           </StripeProvider>

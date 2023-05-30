@@ -82,7 +82,10 @@ const Pro = () => {
             },
             defaultBillingDetails: {
                 email: data.session?.user.email,
-            }
+            },
+            applePay: {
+                merchantCountryCode: 'US',
+            },
         });
 
         if (!error) {
