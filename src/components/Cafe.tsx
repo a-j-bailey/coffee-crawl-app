@@ -5,16 +5,17 @@ import {Ionicons} from '@expo/vector-icons';
 import Block from './Block';
 import Image from './Image';
 import Text from './Text';
-import {IProduct} from '../constants/types';
 import {useTheme, useTranslation} from '../hooks/';
 
 const Cafe = ({cafe, locked, purchased}) => {
     const {id, image, name, linkLabel, location_short} = cafe;
+
+    const visited = (cafe.user_coupons.length > 0);
     
     let type = 'vertical';
 
     const {t} = useTranslation();
-    const {assets, colors, sizes} = useTheme();
+    const {assets, colors, sizes, gradients} = useTheme();
 
     const isHorizontal = type !== 'vertical';
     const CARD_WIDTH = (sizes.width - sizes.padding * 2 - sizes.sm) / 2;
@@ -81,12 +82,20 @@ const Cafe = ({cafe, locked, purchased}) => {
                     marginBottom={sizes.sm}
                     width={isHorizontal ? CARD_WIDTH * 2 + sizes.sm : CARD_WIDTH}>
                     <Image
+                        background
+                        borderRadius={sizes.cardRadius}
                         resizeMode="cover"
                         source={{uri: image}}
                         style={{
-                          height: isHorizontal ? 114 : 110,
-                          width: !isHorizontal ? '100%' : sizes.width / 2.435,
-                        }} />
+                            height: isHorizontal ? 114 : 110,
+                            width: !isHorizontal ? '100%' : sizes.width / 2.435,
+                        }}>
+                        {visited && 
+                            <Block alignItems="flex-end" padding={sizes.s} borderRadius={sizes.cardRadius}>
+                                <Ionicons color={colors.success} size={24} name="checkmark-circle"/>
+                            </Block>
+                        }
+                    </Image>
                     <Block
                         paddingTop={sizes.s}
                         justify="space-between"
@@ -98,17 +107,17 @@ const Cafe = ({cafe, locked, purchased}) => {
                             </Text>
                             <Text h6 marginBottom={sizes.xs} size={12}>{location_short}</Text>
                         </Block>
-                            <Block row flex={0} align="center">
-                                <Text
-                                  p
-                                  color={colors.link}
-                                  semibold
-                                  size={sizes.linkSize}
-                                  marginRight={sizes.s}>
-                                  Explore
-                                </Text>
-                                <Image source={assets.arrow} color={colors.link} />
-                            </Block>
+                        <Block row flex={0} align="center">
+                            <Text
+                                p
+                                color={colors.link}
+                                semibold
+                                size={sizes.linkSize}
+                                marginRight={sizes.s}>
+                                Explore
+                            </Text>
+                            <Image source={assets.arrow} color={colors.link} />
+                        </Block>
                     </Block>
                 </Block>
             </TouchableOpacity>

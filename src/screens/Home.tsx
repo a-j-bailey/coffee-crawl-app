@@ -88,7 +88,7 @@ const Home = () => {
 
         let { data, error } = await supabase
             .from('events')
-            .select('*, cafes (*)')
+            .select('*, cafes (*, user_coupons(*))')
             .order('name', { foreignTable: 'cafes', ascending: true });
 
         if (data) {
