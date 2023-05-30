@@ -92,7 +92,7 @@ const Cafe = ({cafe, locked, purchased}) => {
                         }}>
                         {visited && 
                             <Block alignItems="flex-end" padding={sizes.s} borderRadius={sizes.cardRadius}>
-                                <Ionicons color={colors.success} size={24} name="checkmark-circle"/>
+                                <Ionicons color={colors.white} size={24} name="checkmark-circle"/>
                             </Block>
                         }
                     </Image>
