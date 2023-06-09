@@ -1,5 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import Constants from 'expo-constants';
 
 const ExpoSecureStoreAdapter = {
     getItem: (key: string) => {
@@ -15,12 +16,9 @@ const ExpoSecureStoreAdapter = {
     },
 };
 
-const supabaseUrl = 'https://mwtonofdrluhknmwqcud.supabase.co'
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13dG9ub2Zkcmx1aGtubXdxY3VkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI4ODk0MDQsImV4cCI6MTk5ODQ2NTQwNH0.E0a31YuUwf5lK_puGwxCZtNgpMSBZ733c2c0R7m_Bns'
-
 export const supabase: SupabaseClient = createClient(
-    supabaseUrl,
-    supabaseAnonKey,
+    Constants.expoConfig.extra.SUPABASE_URL,
+    Constants.expoConfig.extra.SUPABASE_ANON_KEY,
     {
         auth: {
             storage: ExpoSecureStoreAdapter as any,
