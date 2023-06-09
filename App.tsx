@@ -4,8 +4,13 @@ import { DataProvider } from './src/hooks';
 import AppNavigation from './src/navigation/App';
 import { Linking } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
+import { vexo } from 'vexo-analytics';
 
 export default function App() {
+
+	// if (!__DEV__) {
+		vexo('375ade05-5f0f-4167-b717-6ecf77d0a596');
+	// }
 
 	const { handleURLCallback } = useStripe();
 
