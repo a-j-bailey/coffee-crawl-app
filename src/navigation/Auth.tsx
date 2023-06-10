@@ -16,9 +16,10 @@ export default () => {
         if (event == 'SIGNED_IN') {
             try {
                 const jsonValue = JSON.stringify(thisSession.user)
-                console.log(thisSession.user.id);
+
                 // Identify device for Vexo analytics.
                 await identifyDevice(thisSession.user.id);
+
                 await AsyncStorage.setItem('@user', jsonValue)
             } catch (e) {
                 console.log('failed to store user');
