@@ -5,6 +5,7 @@ import { supabase } from '../services/supabaseClient';
 import { Session } from '@supabase/supabase-js'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Purchases from 'react-native-purchases'
+import { identifyDevice } from 'vexo-analytics'
 
 export default () => {
     const authenticated = false;
@@ -15,6 +16,9 @@ export default () => {
         if (event == 'SIGNED_IN') {
             try {
                 const jsonValue = JSON.stringify(thisSession.user)
+                console.log(thisSession.user.id);
+                // Identify device for Vexo analytics.
+                await identifyDevice(thisSession.user.id);
                 await AsyncStorage.setItem('@user', jsonValue)
             } catch (e) {
                 console.log('failed to store user');
