@@ -5,9 +5,9 @@
     "scheme": "coffee-crawl",
     "description": "Enjoy some great coffee!",
     "primaryColor": "#CB0C9F",
-    "version": "0.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "version": "0.1.2",
     "splash": {
       "image": "./assets/splash_screen.png",
       "resizeMode": "cover",
@@ -19,22 +19,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.magicmirrorcreative.coffee-crawl",
-      "infoPlist": {
-        "NSCameraUsageDescription": "Access to your camera will allow you to scan and upload a card for payment. This is the only thing we use this access for."
-      },
-      "entitlements": {
-        "com.apple.developer.in-app-payments": "merchant.com.coffee-crawl"
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#CB0C9F"
-      }
-    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
