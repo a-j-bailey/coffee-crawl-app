@@ -96,17 +96,14 @@ const Pro = () => {
                 error.message
             );
         } else if (error.code === PaymentSheetError.Canceled) {
-            console.log('Payment sheet was canceled')
         }
         setLoading(false);
     };
 
     const openPaymentSheet = async () => {
-        console.log('openPaymentSheet');
         const { error } = await presentPaymentSheet();
 
         if (error) {
-            console.log(`Error code: ${error.code}`, error.message)
         } else {
             Alert.alert('Success', 'Your order is confirmed!');
             navigation.navigate('Home');
