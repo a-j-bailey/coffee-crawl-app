@@ -124,7 +124,7 @@ const Pro = () => {
             <Block safe justify="center">
                 <Block card flex={0} padding={sizes.sm} marginBottom={sizes.sm}>
                     <Text h4 center semibold marginBottom={sizes.sm}>
-                        Coffee Crawl 2023
+                        Tulsa Coffee Crawl
                     </Text>
 
                     <Text marginBottom={sizes.padding} center>
@@ -132,16 +132,15 @@ const Pro = () => {
                         the opportunity to explore new coffee shops and cafes across Tulsa.
                     </Text>
 
-                    <Text center semibold>20+ Different Cafes</Text>
-                    <Text center semibold>20+ Cups of Coffee</Text>
-                    <Text center semibold>31 Days to Enjoy it All</Text>
-
-                    <Text marginVertical={sizes.padding} center>
-                        Soon you'll be all set to partake in some amazing coffee.
-                        Each participating cafe is offering a coupon for a minimum of a free small iced coffee!
+                    <Text marginBottom={sizes.padding} center>
+                        Each participating coffee shop is offering a coupon for a free coffee which you'll
+                        be able to redeem at any point in August.
                     </Text>
 
-                    <Text center semibold>Simply present the coupon and enjoy your fresh local coffee.</Text>
+                    <Text center semibold>
+                        Simply present the coupon and enjoy your fresh local coffee.
+                        That's all there is to it.
+                    </Text>
 
                     {loading 
                         ? <ActivityIndicator />
