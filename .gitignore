@@ -11,7 +11,6 @@ npm-debug.*
 
 # builds
 web-build/
-ios/
 android/
 
 # macOS
