@@ -21,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "buildNumber": "5",
+      "buildNumber": "6",
       "bundleIdentifier": "com.magicmirrorcreative.coffee-crawl",
       "infoPlist": {
         "NSCameraUsageDescription": "Access to your camera will allow you to scan and upload a card for payment. This is the only thing we use this access for."
