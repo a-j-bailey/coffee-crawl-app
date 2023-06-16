@@ -52,7 +52,7 @@ export default () => {
       <ThemeProvider theme={theme} setTheme={setTheme}>
         <NavigationContainer theme={navigationTheme}>
           <StripeProvider
-              publishableKey="pk_test_51NA2BtDcpCAUl72SgmEbdCpFVpOjyeSLV6MeaItvdTTr0fKtlKjbZhdDiOrSyOFW1jI1i6Jj7zO4UMUyKJOj0vwc00UcUptHBX"
+              publishableKey="pk_live_51NA2BtDcpCAUl72ScqY72kC1rNJsIUEZH5xqryfWRuluCi4256xv0jra4REb53b4x9RkANfHXpm18RiwON9E6sdH00l3L09YjG"
               urlScheme="coffee-crawl" // required for 3D Secure and bank redirects
               merchantIdentifier="merchant.com.coffee-crawl" // required for Apple Pay
             >
