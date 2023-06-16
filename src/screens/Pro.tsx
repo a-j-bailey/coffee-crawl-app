@@ -56,12 +56,12 @@ const Pro = () => {
 
         setLoading(true);
 
-        await initStripe({
-            publishableKey: stripe_pk,
-            merchantIdentifier: "merchant.com.stripe.react.native",
-            urlScheme: "supabase-stripe-example",
-            // setUrlSchemeOnAndroid: true,
-        });
+        // await initStripe({
+        //     publishableKey: stripe_pk,
+        //     merchantIdentifier: "merchant.com.stripe.react.native",
+        //     urlScheme: "supabase-stripe-example",
+        //     // setUrlSchemeOnAndroid: true,
+        // });
 
         const { data } = await supabase.auth.getSession();
 
