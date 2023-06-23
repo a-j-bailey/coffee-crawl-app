@@ -8,7 +8,7 @@ import {
   DrawerContentOptions,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-
+import {Dimensions} from 'react-native';
 import Screens from './Screens';
 import {Block, Text, Switch, Button, Image} from '../components';
 import {useData, useTheme, useTranslation} from '../hooks';
@@ -53,7 +53,11 @@ const DrawerContent = (
       scrollEnabled
       removeClippedSubviews
       renderToHardwareTextureAndroid
-      contentContainerStyle={{paddingBottom: sizes.padding}}>
+      contentContainerStyle={{
+        paddingBottom: sizes.padding,
+        backgroundColor: colors.background,
+        height: Dimensions.get('window').height,
+      }}>
       <Block paddingHorizontal={sizes.padding}>
         <Block flex={0} row align="center" marginBottom={sizes.l}>
           <Image
