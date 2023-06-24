@@ -116,7 +116,7 @@ const Profile = ({ navigation, route }) => {
                         shadow={!isAndroid} // disabled shadow on Android due to blur overlay + elevation issue
                         marginTop={-sizes.m}
                         marginHorizontal={sizes.padding}
-                        color="rgba(255,255,255,0.2)">
+                        color={(isAndroid)? "rgba(255,255,255,1)" : "rgba(255,255,255,0.2)"}>
                         <Block
                             row
                             blur
