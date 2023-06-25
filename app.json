@@ -7,7 +7,7 @@
     "primaryColor": "#CB0C9F",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "version": "0.1.3",
+    "version": "0.1.2",
     "splash": {
       "image": "./assets/splash_screen.png",
       "resizeMode": "cover",
